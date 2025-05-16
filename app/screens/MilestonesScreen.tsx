@@ -1,10 +1,21 @@
+import * as React from "react";
 import { Text, View } from "react-native";
 
+import colors from "../config/theme";
+import { ThemeContext } from "../context/ThemeContext";
+
 export default function MilestonesScreen() {
+  const themeContext = React.useContext(ThemeContext);
+
+  // Get the current theme mode from the context
+  // Optional chaining: if the themeContext is not available, default back to "light"
+  const currentThemeMode = themeContext?.theme?.mode || "light";
+  const activeColors = colors[currentThemeMode];
+
   return (
     <View
       style={{
-        backgroundColor: "yellow",
+        backgroundColor: activeColors.background,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",

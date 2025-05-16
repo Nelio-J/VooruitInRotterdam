@@ -1,26 +1,45 @@
 const colors = {
     light: {
         primary: "#00811F",
-        secondary: "#364463",
-        tertiary: "#6B2B52",
-        quaternary: "#ff955c",
-        quinary: "#ff881a",
+        secondary: "#73BA81",
+        tertiary: "#285336",
+        quaternary: "#FFB163",
+        quinary: "#FFCD4D",
+        senary: "#2C5777",
+
+        contrast: "#eff4f6",
         accent: "#890000",
-        background: "#feefdb",
+        background: "#FFFFFF",
+        
         text: "#000000",
-        inactive: "#4b4b4b"
+        alt_text: "#FFFFFF",
+
+        active: "#FFFFFF",
+        inactive: "#FFFFFF",
     },
 
     dark: {
-        primary: "#762408",
+        primary: "#181D27",
         secondary: "#00B2FF",
         tertiary: "#D2B48C",
         quaternary: "#973500",
         quinary: "#009fe9",
+        senary: "#FFB163",
+
+        contrast: "#eff4f6",
         accent: "#fcd4b6",
-        background: "#121212",
+        background: "#181D27",
+
         text: "#FFFFFF",
-        inactive: "#a9a9a9"
+        alt_text: "#000000",
+
+        active: "#FFFFFF",
+        inactive: "#a9a9a9",
+
+        emerald: "#73BA81",
+        apricot: "#FFB163",
+        sun: "#FFCD4D",
+        lapus: "#2C5777",
     }   
 
 }
