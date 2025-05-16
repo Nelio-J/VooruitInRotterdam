@@ -20,8 +20,8 @@ const colors = {
     },
 
     dark: {
-        primary: "#181D27",
-        secondary: "#00B2FF",
+        primary: "#000000",
+        secondary: "#181D27",
         tertiary: "#D2B48C",
         quaternary: "#973500",
         quinary: "#009fe9",
