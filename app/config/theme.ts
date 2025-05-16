@@ -28,7 +28,7 @@ const colors = {
 
         contrast: "#eff4f6",
         accent: "#fcd4b6",
-        background: "#181D27",
+        background: "#2C5777",
 
         text: "#FFFFFF",
         alt_text: "#000000",

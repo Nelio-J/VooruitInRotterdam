@@ -1,5 +1,7 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
+import { StyleSheet } from "react-native";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
@@ -40,7 +42,6 @@ const TabNavigator = () => {
         name="Milestones"
         component={MilestonesScreen}
         options={{
-          headerTitleAlign: "center",
           tabBarIcon: (tabInfo) => (
             (<FontAwesome5 
                 name="road"
@@ -54,7 +55,21 @@ const TabNavigator = () => {
 
       <Tab.Screen name="Information" component={InformationScreen}
         options={{
-          headerTitleAlign: "center",
+          // headerLeft: () => {
+          //   const navigation = useNavigation();
+          //   return (
+          //     <Pressable
+          //       style={styles.backButton}
+          //       onPress={() => navigation.goBack()}
+          //     >
+          //       <Ionicons
+          //         name="arrow-back"
+          //         size={25}
+          //         color={activeColors.active}
+          //       />
+          //     </Pressable>
+          //   )
+          // },          
           tabBarIcon: (tabInfo) => (
             (<Ionicons 
                 name="information-circle-outline" 
@@ -68,7 +83,21 @@ const TabNavigator = () => {
 
       <Tab.Screen name="Settings" component={SettingsScreen} 
         options={{
-          headerTitleAlign: "center",
+          // headerLeft: () => {
+          //   const navigation = useNavigation();
+          //   return (
+          //     <Pressable
+          //       style={styles.backButton}
+          //       onPress={() => navigation.goBack()}
+          //     >
+          //       <Ionicons
+          //         name="arrow-back"
+          //         size={25}
+          //         color={activeColors.active}
+          //       />
+          //     </Pressable>
+          //   )
+          // },          
           tabBarIcon: (tabInfo) => (
             (<Ionicons 
                 name="settings-outline" 
@@ -82,5 +111,12 @@ const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  backButton: {
+    marginLeft: 15,
+    padding: 5,
+  },
+});
 
 export default TabNavigator;
