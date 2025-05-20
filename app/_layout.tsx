@@ -1,5 +1,13 @@
-import { Stack } from "expo-router";
+import * as React from "react";
 
-export default function RootLayout() {
-  return <Stack />;
+import RootStack from "./components/navigation/RootStack";
+import ThemeProvider from "./context/ThemeProvider";
+
+export default function App() {
+  return (
+    // Wrap the RootStack with ThemeProvider so ThemeContext is given to the entire app 
+    <ThemeProvider>
+      <RootStack />
+    </ThemeProvider>
+  );
 }
