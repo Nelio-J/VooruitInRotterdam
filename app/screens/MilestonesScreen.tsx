@@ -8,10 +8,13 @@ import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-vi
 import MilestoneBackground from "../../assets/images/Milestone-Background.svg";
 import MilestoneFlags from "../components/MilestoneFlags";
 
+import { useNavigation } from "@react-navigation/native";
+
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 console.log("Screen dimensions:", screenWidth, screenHeight);
 
 export default function MilestonesScreen() {
+  const navigation = useNavigation();
   const themeContext = React.useContext(ThemeContext);
 
   // Get the current theme mode from the context
@@ -19,7 +22,7 @@ export default function MilestonesScreen() {
   const currentThemeMode = themeContext?.theme?.mode || "light";
   const activeColors = colors[currentThemeMode];
 
-const handlePress = (event: GestureResponderEvent) => {
+  const handlePress = (event: GestureResponderEvent) => {
     const { locationX, locationY } = event.nativeEvent;
     console.log("Tapped at", locationX, locationY);
 
@@ -32,7 +35,10 @@ const handlePress = (event: GestureResponderEvent) => {
         locationY <= flag.y + flag.height
       ) {
         console.log("Tapped on flag:", flag.id);
-
+        // on tap --> navigate to the flag's details screen
+        if (flag.screenToNavigateTo) {
+          (navigation.navigate as any)(flag.screenToNavigateTo);
+        }
         return;
       }
     }

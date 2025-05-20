@@ -51,7 +51,7 @@ export default function RootStack() {
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         {/* TabNavigator component for bottom tab navigation */}
-        <TabNavigator />
+      <TabNavigator />
     </View>
   );
 }

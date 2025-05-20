@@ -2,11 +2,11 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MilestonstonesStack from "./StackNavigator";
 
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 import InformationScreen from "@/app/screens/InformationScreen";
-import MilestonesScreen from "@/app/screens/MilestonesScreen";
 import SettingsScreen from "@/app/screens/SettingsScreen";
 
 import colors from "../../config/theme";
@@ -40,7 +40,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Milestones"
-        component={MilestonesScreen}
+        component={MilestonstonesStack}
         options={{
           tabBarIcon: (tabInfo) => (
             (<FontAwesome5 
