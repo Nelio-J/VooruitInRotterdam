@@ -10,13 +10,13 @@ const colors = {
         contrast: "#eff4f6",
         accent: "#890000",
         background: "#FFFFFF",
-        tabBackground: "#FFFFFF",
+        tabBackground: "#00811F",
         
         text: "#000000",
         alt_text: "#FFFFFF",
 
-        active: "#00811F",
-        inactive: "#000000",
+        active: "#000000",
+        inactive: "#FFFFFF",
     },
 
     dark: {

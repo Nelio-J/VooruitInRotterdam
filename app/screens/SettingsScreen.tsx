@@ -1,16 +1,10 @@
 import * as React from "react";
 import { Text, View } from "react-native";
 
-import colors from "../config/theme";
-import { ThemeContext } from "../context/ThemeContext";
+import { useActiveColors } from "@/app/components/activeColorsHook";
 
 export default function SettingsScreen() {
-  const themeContext = React.useContext(ThemeContext);
-
-  // Get the current theme mode from the context
-  // Optional chaining: if the themeContext is not available, default back to "light"
-  const currentThemeMode = themeContext?.theme?.mode || "light";
-  const activeColors = colors[currentThemeMode];
+  const activeColors = useActiveColors();
 
   return (
     <View

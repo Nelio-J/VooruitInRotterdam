@@ -34,6 +34,7 @@ const TabNavigator = () => {
           backgroundColor: activeColors.tabBackground,
           borderTopWidth: 0,
         },
+        tabBarActiveBackgroundColor: activeColors.background,
         tabBarActiveTintColor: activeColors.active,
         tabBarInactiveTintColor: activeColors.inactive,
       }}

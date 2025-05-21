@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Dimensions, GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
 
-import colors from "../config/theme";
-import { ThemeContext } from "../context/ThemeContext";
+import { useActiveColors } from "@/app/components/activeColorsHook";
 
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import MilestoneBackground from "../../assets/images/Milestone-Background.svg";
@@ -15,12 +14,7 @@ console.log("Screen dimensions:", screenWidth, screenHeight);
 
 export default function MilestonesScreen() {
   const navigation = useNavigation();
-  const themeContext = React.useContext(ThemeContext);
-
-  // Get the current theme mode from the context
-  // Optional chaining: if the themeContext is not available, default back to "light"
-  const currentThemeMode = themeContext?.theme?.mode || "light";
-  const activeColors = colors[currentThemeMode];
+  const activeColors = useActiveColors();
 
   const handlePress = (event: GestureResponderEvent) => {
     const { locationX, locationY } = event.nativeEvent;
