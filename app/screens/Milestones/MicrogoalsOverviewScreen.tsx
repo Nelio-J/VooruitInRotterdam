@@ -167,11 +167,7 @@ const styles = StyleSheet.create({
     fontFamily: "NotoSerif_700Bold",
     textAlign: "left",
     marginTop: 30,
-    marginHorizontal: 10,
-  },
-  backButton: {
-    marginLeft: 15,
-    padding: 5,
+    paddingHorizontal: 10,
   },
   itemRow: {
     flexDirection: "row",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -47,14 +47,16 @@ export default function MilestonesStack() {
           headerLeft: () => {
             return (
               <Pressable
-                style={styles.backButton}
+                style={styles.backButtonContainer}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons
                   name="arrow-back"
                   size={25}
                   color={activeColors.button}
+                  style={styles.backButton}
                 />
+                <Text style={styles.backTitle}>Return</Text>
               </Pressable>
             );
           },
@@ -67,14 +69,16 @@ export default function MilestonesStack() {
           headerLeft: () => {
             return (
               <Pressable
-                style={styles.backButton}
+                style={styles.backButtonContainer}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons
                   name="arrow-back"
                   size={25}
                   color={activeColors.button}
+                  style={styles.backButton}
                 />
+                <Text style={styles.backTitle}>Return</Text>
               </Pressable>
             );
           },
@@ -85,8 +89,17 @@ export default function MilestonesStack() {
 }
 
 const styles = StyleSheet.create({
-  backButton: {
-    marginLeft: 15,
-    padding: 5,
+  backButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
+  backButton: {
+    borderColor: "white",
+    borderWidth: 2,
+    padding: 1,
+  },
+  backTitle: {
+    color: "white",
+    marginLeft: 10,
+  }
 });
