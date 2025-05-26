@@ -1,18 +1,20 @@
 import * as React from "react";
 import { Pressable, StyleSheet } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { MilestonesStackParamList } from "./types";
+
 import MicrogoalsOverviewScreen from "@/app/screens/Milestones/MicrogoalsOverviewScreen";
+import LanguageActivityScreen from "@/app/screens/Milestones/Milestone_1_first_steps/LanguageActivity";
 import MilestonesScreen from "@/app/screens/MilestonesScreen";
 
 import colors from "../../config/theme";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MilestonesStackParamList>();
 
 export default function MilestonesStack() {
   const themeContext = React.useContext(ThemeContext);
@@ -23,9 +25,16 @@ export default function MilestonesStack() {
   const activeColors = colors[currentThemeMode];
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: activeColors.primary,
+        },
+        headerTitle: "",
+      }}
+    >
       <Stack.Screen
-        name="Milestones"
+        name="MilestonesScreen"
         component={MilestonesScreen}
         options={{
           headerShown: false,
@@ -34,10 +43,8 @@ export default function MilestonesStack() {
       <Stack.Screen
         name="MicrogoalsOverviewScreen"
         component={MicrogoalsOverviewScreen}
-        options={{
-          headerShown: false,
+        options={({ navigation }) => ({
           headerLeft: () => {
-            const navigation = useNavigation();
             return (
               <Pressable
                 style={styles.backButton}
@@ -46,12 +53,32 @@ export default function MilestonesStack() {
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={activeColors.active}
+                  color={activeColors.button}
                 />
               </Pressable>
             );
           },
-        }}
+        })}
+      />
+      <Stack.Screen
+        name="LanguageActivityScreen"
+        component={LanguageActivityScreen}
+        options={({ navigation }) => ({
+          headerLeft: () => {
+            return (
+              <Pressable
+                style={styles.backButton}
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons
+                  name="arrow-back"
+                  size={25}
+                  color={activeColors.button}
+                />
+              </Pressable>
+            );
+          },
+        })}
       />
     </Stack.Navigator>
   );

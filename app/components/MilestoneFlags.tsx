@@ -1,3 +1,4 @@
+import { MilestonesStackParamList } from "./navigation/types";
 
 interface FlagArea {
   id: string;
@@ -8,8 +9,9 @@ interface FlagArea {
   
   // You might also want to store an action or data associated with this flag
   action?: () => void;
-  screenToNavigateTo?: string; // Example for navigation
+  screenToNavigateTo?: keyof MilestonesStackParamList; // Example for navigation
   dataId?: string; // Example for passing data
+  targetCategoryId?: string; // For MicrogoalsOverviewScreen
 }
 
 const MilestoneFlags: FlagArea[] = [

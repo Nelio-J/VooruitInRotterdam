@@ -1,36 +1,61 @@
 import * as React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from 'react-native-svg';
 
-import { useActiveColors } from "@/app/components/activeColorsHook";
+import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
+import { Ionicons } from "@expo/vector-icons";
+
+import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
+
+import { MilestonesStackParamList } from "@/app/components/navigation/types";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    category: 'Language',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    category: 'Rotterdam',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    category: 'Integration',
   },
     {
     id: '58694a0f-3da1-471f-bd96-1478gfd7g8f2',
-    title: 'Fourth Item',
+    category: 'Social',
   },
 ];
 
-type ItemProps = {title: string};
+type ItemProps = {category: string};
 
-const Item = ({title}: ItemProps) => (
-  <View style={styles.item}>
-    <Text style={styles.listTitles}>{title}</Text>
-  </View>
-);
+// Define the type for the navigation object within the Item component's context
+type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MilestonesScreen">;
+
+const Item = ({ category }: ItemProps) => {
+  const navigation = useNavigation<ItemScreenNavigationProp>();
+  
+  const handlePress = () => {
+    console.log("Tapped on item");
+    navigation.navigate("LanguageActivityScreen");
+  };
+
+  return (
+    <View style={styles.item}>
+      <MicrogoalImages name={category} style={styles.itemImage} />
+      <Pressable onPress={handlePress}>
+        <View style={styles.itemRow}>
+          <Text style={styles.listTitles}>{category}</Text>
+          <Ionicons name="arrow-forward" size={18} color="black" />
+        </View>
+      </Pressable>
+    </View>
+  );
+};
 
 export function BookmarkSvgComponent({ children }: { children?: React.ReactNode }) {
   const originalWidth = 332;
@@ -97,7 +122,7 @@ export default function MicrogoalsOverviewScreen() {
         <Text style={[styles.H3, {color: activeColors.text}]}>Learn about</Text>
         <FlatList 
         data={DATA} 
-        renderItem={({item}) => <Item title={item.title} />}
+        renderItem={({item}) => <Item category={item.category} />}
         keyExtractor={item => item.id}
         numColumns={2}>
         </FlatList>
@@ -148,20 +173,39 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     padding: 5,
   },
+  itemRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "orange",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderBottomRightRadius: 10,
+    bottom: 4,
+  },
   item: {
     backgroundColor: "#000000",
     width: "45%",
     aspectRatio: 1,
+    overflow: "hidden",
+    position: "relative",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    padding: 16,
     margin: 10,
-    borderRadius: 10,    
+    borderRadius: 10,
   },
   listTitles: {
     fontSize: 12,
     fontFamily: "NotoSerif_700Bold",
-    color: "#FFFFFF",
-    textAlign: "right",
+    color: "#000000",
+    minWidth: 80,
+  },
+  itemImage: {
+    position: "absolute",
+    left: 4,
+    bottom: 4,
+    objectFit: "cover",
+    width: "100%",
+    height: "100%",
+    borderRadius: 10,
   },
 });

@@ -17,6 +17,8 @@ const colors = {
 
         active: "#000000",
         inactive: "#FFFFFF",
+
+        button: "#FFFFFF"
     },
 
     dark: {
@@ -37,6 +39,8 @@ const colors = {
 
         active: "#FFFFFF",
         inactive: "#a9a9a9",
+
+        button: "#FFFFFF",
 
         emerald: "#73BA81",
         apricot: "#FFB163",

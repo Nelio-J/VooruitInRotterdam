@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, View } from "react-native";
 
-import { useActiveColors } from "@/app/components/activeColorsHook";
+import useActiveColors from "@/app/components/activeColorsHook";
 
 export default function SettingsScreen() {
   const activeColors = useActiveColors();

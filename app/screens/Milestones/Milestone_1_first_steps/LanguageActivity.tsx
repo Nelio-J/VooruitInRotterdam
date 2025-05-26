@@ -3,19 +3,19 @@ import { Text, View } from "react-native";
 
 import useActiveColors from "@/app/components/activeColorsHook";
 
-export default function InformationScreen() {
+export default function LanguageActivityScreen() {
   const activeColors = useActiveColors();
 
   return (
     <View
       style={{
-        backgroundColor: activeColors.secondary,
+        backgroundColor: activeColors.quaternary,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Text>Edit app/information.tsx to edit this screen.</Text>
+      <Text>Edit app/language.tsx to edit this screen.</Text>
     </View>
   );
 }
