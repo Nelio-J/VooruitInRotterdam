@@ -1,21 +1,21 @@
-import * as React from "react";
-import { Text, View } from "react-native";
+// import * as React from "react";
+// import { Text, View } from "react-native";
 
-import useActiveColors from "@/app/components/activeColorsHook";
+// import useActiveColors from "@/app/components/activeColorsHook";
 
-export default function LanguageActivityScreen() {
-  const activeColors = useActiveColors();
+// export default function LanguageActivityScreen() {
+//   const activeColors = useActiveColors();
 
-  return (
-    <View
-      style={{
-        backgroundColor: activeColors.quaternary,
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/language.tsx to edit this screen.</Text>
-    </View>
-  );
-}
+//   return (
+//     <View
+//       style={{
+//         backgroundColor: activeColors.quaternary,
+//         flex: 1,
+//         justifyContent: "center",
+//         alignItems: "center",
+//       }}
+//     >
+//       <Text>Edit app/language.tsx to edit this screen.</Text>
+//     </View>
+//   );
+// }

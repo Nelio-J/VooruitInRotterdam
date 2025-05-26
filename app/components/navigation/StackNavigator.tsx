@@ -7,22 +7,20 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MilestonesStackParamList } from "./types";
 
+import ActivityScreen from "@/app/components/ActivityScreenComponent";
 import MicrogoalsOverviewScreen from "@/app/screens/Milestones/MicrogoalsOverviewScreen";
-import LanguageActivityScreen from "@/app/screens/Milestones/Milestone_1_first_steps/LanguageActivity";
 import MilestonesScreen from "@/app/screens/MilestonesScreen";
 
-import colors from "../../config/theme";
-import { ThemeContext } from "../../context/ThemeContext";
+import useActiveColors from "@/app/components/activeColorsHook";
+import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
 
 const Stack = createNativeStackNavigator<MilestonesStackParamList>();
 
 export default function MilestonesStack() {
-  const themeContext = React.useContext(ThemeContext);
+  const [fontsLoaded] = useNotoSerifFonts();
+  const activeColors = useActiveColors();
 
-  // Get the current theme mode from the context
-  // Optional chaining: if the themeContext is not available, default back to "light"
-  const currentThemeMode = themeContext?.theme?.mode || "light";
-  const activeColors = colors[currentThemeMode];
+  if (!fontsLoaded) return null;
 
   return (
     <Stack.Navigator
@@ -63,8 +61,8 @@ export default function MilestonesStack() {
         })}
       />
       <Stack.Screen
-        name="LanguageActivityScreen"
-        component={LanguageActivityScreen}
+        name="ActivityScreen"
+        component={ActivityScreen}
         options={({ navigation }) => ({
           headerLeft: () => {
             return (
@@ -99,6 +97,8 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   backTitle: {
+    fontSize: 14,
+    fontFamily: "NotoSerif_600SemiBold",
     color: "white",
     marginLeft: 10,
   }

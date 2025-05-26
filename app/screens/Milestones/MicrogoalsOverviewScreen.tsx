@@ -16,32 +16,56 @@ const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     category: 'Language',
+    title: "Language Activity",
+    content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
+    image: require("@/assets/images/app-logo.png"),
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     category: 'Rotterdam',
+    title: "Rotterdam Activity",
+    content: "This is the description of the Rotterdam activity. It provides details about what the activity entails and how to complete it.",
+    image: require("@/assets/images/app-logo.png"),
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     category: 'Integration',
+    title: "Integration Activity",
+    content: "This is the description of the integration activity. It provides details about what the activity entails and how to complete it.",
+    image: require("@/assets/images/app-logo.png"),
   },
     {
     id: '58694a0f-3da1-471f-bd96-1478gfd7g8f2',
     category: 'Social',
+    title: "Social Activity",
+    content: "This is the description of the social activity. It provides details about what the activity entails and how to complete it.",
+    image: require("@/assets/images/app-logo.png"),
   },
 ];
 
-type ItemProps = {category: string};
+type ItemProps = {
+  id: string;
+  category: string
+  title: string;
+  content: string;
+  image?: any;
+};
 
 // Define the type for the navigation object within the Item component's context
-type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MilestonesScreen">;
+type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
-const Item = ({ category }: ItemProps) => {
+const Item = ({ id, category, title, content, image }: ItemProps) => {
   const navigation = useNavigation<ItemScreenNavigationProp>();
   
   const handlePress = () => {
     console.log("Tapped on item");
-    navigation.navigate("LanguageActivityScreen");
+    navigation.navigate("ActivityScreen", {
+      id: id,
+      category: category,
+      title: title,
+      content: content,
+      image: image, // Pass the image if it exists
+    });
   };
 
   return (
@@ -122,7 +146,15 @@ export default function MicrogoalsOverviewScreen() {
         <Text style={[styles.H3, {color: activeColors.text}]}>Learn about</Text>
         <FlatList 
         data={DATA} 
-        renderItem={({item}) => <Item category={item.category} />}
+        renderItem={({item}) => (
+        <Item 
+          id={item.id}
+          category={item.category}
+          title={item.title}
+          content={item.content}
+          image={item.image}
+        />
+      )}
         keyExtractor={item => item.id}
         numColumns={2}>
         </FlatList>

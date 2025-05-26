@@ -4,13 +4,31 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
 
+import { useRoute } from "@react-navigation/native";
+
+import { MilestonesStackParamList } from "@/app/components/navigation/types";
+
 import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function LanguageActivityScreen() {
+const TestData = {
+  category: "Language",
+  title: "Language Activity",
+  content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
+  image: require("@/assets/images/app-logo.png"),
+};
+
+import { RouteProp } from "@react-navigation/native";
+
+type ActivityScreenRouteProp = RouteProp<MilestonesStackParamList, 'ActivityScreen'>;
+
+export default function ActivityScreen() {
   const [fontsLoaded] = useNotoSerifFonts();
   const activeColors = useActiveColors();
+  const route = useRoute<ActivityScreenRouteProp>();
+  const { id, category, title, content, image } = route.params ?? {};
+  console.log("ActivityScreen params:", { id, category, title, content, image });
 
   if (!fontsLoaded) return null;
 
@@ -18,14 +36,14 @@ export default function LanguageActivityScreen() {
     <SafeAreaView
       style={[styles.container, { backgroundColor: activeColors.activityBackgroundLanguage }]}
     >
-      <MicrogoalImages name="Language" style={{ width: "100%", height: "25%" }} />
+      <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} />
       <View style={[styles.titleContainer, { backgroundColor: activeColors.activityAccentLanguage }]}>
-        <Text style={styles.title}>Category</Text>
+        <Text style={styles.title}>{category}</Text>
       </View>
       <View style={styles.contentContainer}>
         
         <View style={styles.headerRow}>
-          <Text style={styles.H1}>Activity Title</Text>
+          <Text style={styles.H1}> {title} </Text>
           <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}>
             <Text style={[styles.listenButton, {color: activeColors.text}]}>Listen</Text>
             <Ionicons name="volume-high" size={24} color={activeColors.text} style={styles.listenIcon} />
@@ -35,11 +53,14 @@ export default function LanguageActivityScreen() {
         <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
           <View style={styles.textImageRow}>
             <Text style={styles.content}>
-              This is the description of the activity. It provides details about what the activity entails and how to complete it.
+              {content}
             </Text>
+            
+            {image && (
             <View style={styles.imageWrapper}>
-              <Image source={require("@/assets/images/app-logo.png")} style={styles.contentImage} />
+              <Image source={image} style={styles.contentImage} />
             </View>
+            )}
           </View>
 
             <Text style={styles.content}>
@@ -67,12 +88,9 @@ export default function LanguageActivityScreen() {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     overflow: "hidden",
   },
   titleContainer: {
