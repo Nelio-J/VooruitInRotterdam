@@ -1,0 +1,244 @@
+import * as React from "react";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+
+import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
+import { Ionicons } from "@expo/vector-icons";
+import SecondaryButton from "./buttons/SecondaryButton";
+
+import { RouteProp, useRoute } from "@react-navigation/native";
+
+import { MilestonesStackParamList } from "@/app/components/navigation/types";
+
+import useActiveColors from "@/app/components/activeColorsHook";
+import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+type ActivityScreenRouteProp = RouteProp<MilestonesStackParamList, 'ActivityScreen'>;
+
+export default function ActivityScreen() {
+  const [fontsLoaded] = useNotoSerifFonts();
+  const activeColors = useActiveColors();
+  const route = useRoute<ActivityScreenRouteProp>();
+  const { id, category, title, content, image, contentExtra } = route.params ?? {};
+  console.log("ActivityScreen params:", { id, category, title, content, image });
+
+  if (!fontsLoaded) return null;
+
+  let activityBackgroundColor;
+  let activityAccentColor;
+  let titleBackgroundColor;
+  let titleColor;
+  let textColor;
+
+  switch (category) {
+    case "Language":
+      activityBackgroundColor = activeColors.activityBackgroundLanguage;
+      activityAccentColor = activeColors.activityAccentLanguage;
+      titleBackgroundColor = activeColors.text
+      titleColor = activeColors.text;
+      textColor = activeColors.text;
+      break;
+    case "Rotterdam":
+      activityBackgroundColor = activeColors.activityBackgroundRotterdam;
+      activityAccentColor = activeColors.activityAccentRotterdam;
+      titleBackgroundColor = activeColors.contrast
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+    case "Integration":
+      activityBackgroundColor = activeColors.activityBackgroundIntegration;
+      activityAccentColor = activeColors.activityAccentIntegration;
+      titleBackgroundColor = activeColors.contrast
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+    case "Social":
+      activityBackgroundColor = activeColors.activityBackgroundSocial;
+      activityAccentColor = activeColors.activityAccentSocial;
+      titleBackgroundColor = activeColors.text
+      titleColor = activeColors.text;
+      textColor = activeColors.alt_text;
+      break;
+    default:
+      activityBackgroundColor = activeColors.activityAccentRotterdam;
+      activityAccentColor = activeColors.activityAccentRotterdam;
+      titleBackgroundColor = activeColors.contrast;
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+  }
+
+  return (
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: activityBackgroundColor }]}
+    >
+      <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} />
+      <View style={styles.titleContainerWrapper}>
+      <View style={[styles.titleContainer, { backgroundColor: activityAccentColor }]}>
+        <Text style={[styles.title, { color: titleColor }]}>{category}</Text>
+      </View>
+      <View style={[styles.titleContainerBackground, { backgroundColor: titleBackgroundColor }]} />
+      </View>
+
+      <View style={styles.contentContainer}>
+        
+        <View style={styles.headerRow}>
+          <Text style={[styles.H1, { color: textColor }]}>{title}</Text>
+          <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}>
+            <Text style={[styles.listenButton, {color: activeColors.text}]}>Listen</Text>
+            <Ionicons name="volume-high" size={24} color={activeColors.text} style={styles.listenIcon} />
+          </Pressable>
+        </View>
+        
+        <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
+          <View style={styles.textImageRow}>
+            <Text style={[styles.content, { color: textColor }]}>
+              {content}
+            </Text>
+            
+            {image && (
+            <View style={styles.imageWrapper}>
+              <Image source={image} style={styles.contentImage} />
+            </View>
+            )}
+          </View>
+
+            <Text style={[styles.content, { color: textColor }]}>
+              {contentExtra || ""}
+            </Text>
+        
+          <View style={styles.buttonContainer}>
+            <SecondaryButton onPress={() => console.log("pressed")} />
+          </View>
+        </ScrollView>
+
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    overflow: "hidden",
+  },
+  titleContainerWrapper: {
+    position: "relative",
+    alignSelf: "flex-end",
+    marginRight: 20,
+    marginBottom: -20,
+    top: -50,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    // alignSelf: "flex-end",
+    borderRadius: 50,
+    paddingHorizontal: 40,
+    paddingVertical: 20,
+    zIndex: 1,
+    // top: -50,
+    // marginBottom: -20,
+    // marginRight: 20,
+  },
+  titleContainerBackground: {
+    position: "absolute",
+    top: 0,
+    left: -1,
+    right: 0,
+    bottom: -3,
+    borderRadius: 50,
+    zIndex: 0,
+  },
+  title: {
+    fontSize: 28,
+    fontFamily: "NotoSerif_700Bold",
+    textAlign: "right",
+  },
+  contentContainer: {
+    paddingHorizontal: 10,
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  H1: {
+    fontSize: 24,
+    fontFamily: "NotoSerif_700Bold",
+    textAlign: "left",
+    marginRight: "auto",
+    maxWidth: "70%",
+  },
+  listenWrapper: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  listenButton: {
+    fontSize: 20,
+    fontFamily: "NotoSerif_400Regular",
+    textAlign: "right",
+  },
+  listenIcon: {
+    marginLeft: 5,
+    alignSelf: "center",
+  },
+  scrollView: {
+  },
+  textImageRow: {
+    flexDirection: "row",
+    // alignItems: "center",
+    width: "100%",
+  },
+  content: {
+    flex: 1,
+    minWidth: 0, // Allow text to shrink if needed
+    fontSize: 16,
+    fontFamily: "NotoSerif_400Regular",
+    paddingVertical: 10,
+    marginRight: 10,
+  },
+  imageWrapper: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+    maxWidth: "50%",
+  },
+  contentImage: {
+    width: "100%",
+    height: undefined, // This will be set by the aspectRatio
+    aspectRatio: 1,
+    resizeMode: "contain",
+  },
+  buttonContainer: {
+    justifyContent: "flex-end",
+    position: "sticky",
+  },
+  // button: {
+  //   backgroundColor: "white",    
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignSelf: "center",
+  //   alignItems: "center",
+  //   paddingHorizontal: 25,
+  //   paddingVertical: 15,
+  //   borderRadius: 10,
+  //   borderColor: "black",
+  //   borderWidth: 2,
+  //   marginVertical: 20,
+  // },
+  // buttonText: {
+  //   fontSize: 18,
+  //   fontFamily: "NotoSerif_700Bold",
+  // },
+  // buttonIcon: {
+  //   marginLeft: 10,
+  //   alignSelf: "center",
+  // },
+});

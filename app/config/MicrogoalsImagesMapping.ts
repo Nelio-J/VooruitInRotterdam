@@ -1,0 +1,13 @@
+export const microgoalImageMapping: Record<string, any> = {
+    Integration: require("../../assets/images/microgoals/Integration1.jpg"),
+    Integration2: require("../../assets/images/microgoals/Integration2.jpg"),
+    Integration3: require("../../assets/images/microgoals/Integration3.jpg"),
+    Language: require("../../assets/images/microgoals/Language.jpg"),
+    Language_Alt: require("../../assets/images/microgoals/Language_alt.jpg"),
+    Rotterdam: require("../../assets/images/microgoals/Rotterdam.jpg"),
+    RotterdamBlaak: require("../../assets/images/microgoals/RotterdamBlaak.jpg"),
+    RotterdamNight: require("../../assets/images/microgoals/RotterdamNight.jpg"),
+    RotterdamSkyline: require("../../assets/images/microgoals/RotterdamSkyline.jpg"),
+    Social: require("../../assets/images/microgoals/Social1.webp"),
+    Social2: require("../../assets/images/microgoals/Social2.jpg"),
+};

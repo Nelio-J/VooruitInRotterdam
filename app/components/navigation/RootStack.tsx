@@ -5,10 +5,15 @@ import Entypo from "@expo/vector-icons/Entypo";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import TabNavigator from "./TabNavigator";
+import { RootStackParamList } from "./types";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
   // const [data, setData] = React.useState();
@@ -50,8 +55,17 @@ export default function RootStack() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        {/* TabNavigator component for bottom tab navigation */}
-        <TabNavigator />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="MainTabs" // This name MUST match RootStackParamList
+            component={TabNavigator}
+            options={{
+              headerShown: false,
+            }}
+          />
+          {/* Add any other top-level screens NOT part of the tab flow here
+              e.g., if you had an Auth flow or a one-off modal */}
+        </Stack.Navigator>
     </View>
   );
 }
