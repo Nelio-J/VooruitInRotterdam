@@ -19,6 +19,7 @@ const DATA = [
     title: "Language Activity",
     content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
     image: require("@/assets/images/app-logo.png"),
+    contentExtra: "This is additional content for the language activity. It provides more context and information about the activity. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -26,6 +27,7 @@ const DATA = [
     title: "Rotterdam Activity",
     content: "This is the description of the Rotterdam activity. It provides details about what the activity entails and how to complete it.",
     image: require("@/assets/images/app-logo.png"),
+    contentExtra: "This is additional content for the Rotterdam activity. It provides more context and information about the activity.",
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -33,13 +35,15 @@ const DATA = [
     title: "Integration Activity",
     content: "This is the description of the integration activity. It provides details about what the activity entails and how to complete it.",
     image: require("@/assets/images/app-logo.png"),
+    contentExtra: "",
   },
     {
     id: '58694a0f-3da1-471f-bd96-1478gfd7g8f2',
     category: 'Social',
     title: "Social Activity",
     content: "This is the description of the social activity. It provides details about what the activity entails and how to complete it.",
-    image: require("@/assets/images/app-logo.png"),
+    image: "",
+    contentExtra: "",
   },
 ];
 
@@ -49,12 +53,13 @@ type ItemProps = {
   title: string;
   content: string;
   image?: any;
+  contentExtra?: string;
 };
 
 // Define the type for the navigation object within the Item component's context
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
-const Item = ({ id, category, title, content, image }: ItemProps) => {
+const Item = ({ id, category, title, content, image, contentExtra }: ItemProps) => {
   const navigation = useNavigation<ItemScreenNavigationProp>();
   
   const handlePress = () => {
@@ -65,6 +70,7 @@ const Item = ({ id, category, title, content, image }: ItemProps) => {
       title: title,
       content: content,
       image: image, // Pass the image if it exists
+      contentExtra: contentExtra, // Pass additional content if it exists
     });
   };
 
@@ -153,6 +159,7 @@ export default function MicrogoalsOverviewScreen() {
           title={item.title}
           content={item.content}
           image={item.image}
+          contentExtra={item.contentExtra}
         />
       )}
         keyExtractor={item => item.id}

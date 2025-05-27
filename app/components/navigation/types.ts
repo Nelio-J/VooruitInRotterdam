@@ -8,7 +8,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export type MilestonesStackParamList = {
   MilestonesScreen: undefined; // The initial screen for the Milestones tab
   MicrogoalsOverviewScreen: { id: string, category: string };
-  ActivityScreen: { id: string, category: string, title: string, content: string, image?: number | {uri: string} } | undefined;
+  ActivityScreen: { id: string, category: string, title: string, content: string, image?: number | {uri: string}, contentExtra?: string } | undefined;
 };
 
 // 2. Define the ParamList for the Main Tab Navigator
@@ -25,8 +25,6 @@ export type RootStackParamList = {
   MainTabs: NavigatorScreenParams<TabParamList>; // The screen that renders your TabNavigator
   // Add any other top-level screens that are NOT part of the tabs here
   // (e.g., Authentication flow, onboarding, or a standalone screen accessible from anywhere)
-  // For example, if LanguageActivityScreen is a top-level screen outside the tabs:
-  // LanguageActivityScreen: { itemId: string; categoryName: string } | undefined;
 };
 
 

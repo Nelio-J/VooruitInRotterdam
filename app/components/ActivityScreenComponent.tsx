@@ -3,8 +3,9 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
+import SecondaryButton from "./buttons/SecondaryButton";
 
-import { useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute } from "@react-navigation/native";
 
 import { MilestonesStackParamList } from "@/app/components/navigation/types";
 
@@ -12,38 +13,77 @@ import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const TestData = {
-  category: "Language",
-  title: "Language Activity",
-  content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
-  image: require("@/assets/images/app-logo.png"),
-};
-
-import { RouteProp } from "@react-navigation/native";
-
 type ActivityScreenRouteProp = RouteProp<MilestonesStackParamList, 'ActivityScreen'>;
 
 export default function ActivityScreen() {
   const [fontsLoaded] = useNotoSerifFonts();
   const activeColors = useActiveColors();
   const route = useRoute<ActivityScreenRouteProp>();
-  const { id, category, title, content, image } = route.params ?? {};
+  const { id, category, title, content, image, contentExtra } = route.params ?? {};
   console.log("ActivityScreen params:", { id, category, title, content, image });
 
   if (!fontsLoaded) return null;
 
+  let activityBackgroundColor;
+  let activityAccentColor;
+  let titleBackgroundColor;
+  let titleColor;
+  let textColor;
+
+  switch (category) {
+    case "Language":
+      activityBackgroundColor = activeColors.activityBackgroundLanguage;
+      activityAccentColor = activeColors.activityAccentLanguage;
+      titleBackgroundColor = activeColors.text
+      titleColor = activeColors.text;
+      textColor = activeColors.text;
+      break;
+    case "Rotterdam":
+      activityBackgroundColor = activeColors.activityBackgroundRotterdam;
+      activityAccentColor = activeColors.activityAccentRotterdam;
+      titleBackgroundColor = activeColors.contrast
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+    case "Integration":
+      activityBackgroundColor = activeColors.activityBackgroundIntegration;
+      activityAccentColor = activeColors.activityAccentIntegration;
+      titleBackgroundColor = activeColors.contrast
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+    case "Social":
+      activityBackgroundColor = activeColors.activityBackgroundSocial;
+      activityAccentColor = activeColors.activityAccentSocial;
+      titleBackgroundColor = activeColors.text
+      titleColor = activeColors.text;
+      textColor = activeColors.alt_text;
+      break;
+    default:
+      activityBackgroundColor = activeColors.activityAccentRotterdam;
+      activityAccentColor = activeColors.activityAccentRotterdam;
+      titleBackgroundColor = activeColors.contrast;
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
+  }
+
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: activeColors.activityBackgroundLanguage }]}
+      style={[styles.container, { backgroundColor: activityBackgroundColor }]}
     >
       <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} />
-      <View style={[styles.titleContainer, { backgroundColor: activeColors.activityAccentLanguage }]}>
-        <Text style={styles.title}>{category}</Text>
+      <View style={styles.titleContainerWrapper}>
+      <View style={[styles.titleContainer, { backgroundColor: activityAccentColor }]}>
+        <Text style={[styles.title, { color: titleColor }]}>{category}</Text>
       </View>
+      <View style={[styles.titleContainerBackground, { backgroundColor: titleBackgroundColor }]} />
+      </View>
+
       <View style={styles.contentContainer}>
         
         <View style={styles.headerRow}>
-          <Text style={styles.H1}> {title} </Text>
+          <Text style={[styles.H1, { color: textColor }]}>{title}</Text>
           <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}>
             <Text style={[styles.listenButton, {color: activeColors.text}]}>Listen</Text>
             <Ionicons name="volume-high" size={24} color={activeColors.text} style={styles.listenIcon} />
@@ -52,7 +92,7 @@ export default function ActivityScreen() {
         
         <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
           <View style={styles.textImageRow}>
-            <Text style={styles.content}>
+            <Text style={[styles.content, { color: textColor }]}>
               {content}
             </Text>
             
@@ -63,24 +103,12 @@ export default function ActivityScreen() {
             )}
           </View>
 
-            <Text style={styles.content}>
-              This is an image related to the activity. It helps illustrate the content and provides visual context.
+            <Text style={[styles.content, { color: textColor }]}>
+              {contentExtra || ""}
             </Text>
-            <Text style={styles.content}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </Text>
-          
-          <Text style={styles.content}>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </Text>
         
           <View style={styles.buttonContainer}>
-            <Pressable style={styles.button}>
-              <Text style={[styles.buttonText, { color: activeColors.text }]}>
-                Complete task            
-              </Text>              
-              <Ionicons name="checkbox-outline" size={24} color={activeColors.text} style={styles.buttonIcon}/>
-            </Pressable>
+            <SecondaryButton onPress={() => console.log("pressed")} />
           </View>
         </ScrollView>
 
@@ -88,21 +116,39 @@ export default function ActivityScreen() {
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     overflow: "hidden",
   },
+  titleContainerWrapper: {
+    position: "relative",
+    alignSelf: "flex-end",
+    marginRight: 20,
+    marginBottom: -20,
+    top: -50,
+  },
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "flex-end",
+    // alignSelf: "flex-end",
     borderRadius: 50,
     paddingHorizontal: 40,
     paddingVertical: 20,
-    top: -50,
-    marginBottom: -20,
-    marginRight: 20,
+    zIndex: 1,
+    // top: -50,
+    // marginBottom: -20,
+    // marginRight: 20,
+  },
+  titleContainerBackground: {
+    position: "absolute",
+    top: 0,
+    left: -1,
+    right: 0,
+    bottom: -3,
+    borderRadius: 50,
+    zIndex: 0,
   },
   title: {
     fontSize: 28,
@@ -174,25 +220,25 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     position: "sticky",
   },
-  button: {
-    backgroundColor: "white",    
-    flexDirection: "row",
-    justifyContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    paddingVertical: 15,
-    borderRadius: 10,
-    borderColor: "black",
-    borderWidth: 2,
-    marginVertical: 20,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontFamily: "NotoSerif_700Bold",
-  },
-  buttonIcon: {
-    marginLeft: 10,
-    alignSelf: "center",
-  },
+  // button: {
+  //   backgroundColor: "white",    
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignSelf: "center",
+  //   alignItems: "center",
+  //   paddingHorizontal: 25,
+  //   paddingVertical: 15,
+  //   borderRadius: 10,
+  //   borderColor: "black",
+  //   borderWidth: 2,
+  //   marginVertical: 20,
+  // },
+  // buttonText: {
+  //   fontSize: 18,
+  //   fontFamily: "NotoSerif_700Bold",
+  // },
+  // buttonIcon: {
+  //   marginLeft: 10,
+  //   alignSelf: "center",
+  // },
 });

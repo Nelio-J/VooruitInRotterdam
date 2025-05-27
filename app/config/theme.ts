@@ -14,7 +14,7 @@ const colors = {
         active: "#000000",
         inactive: "#FFFFFF",
 
-        button: "#FFFFFF",
+        primaryButton: "#285336",
 
         activityBackgroundLanguage: "#FFB163",
         activityBackgroundRotterdam: "#73BA81",
@@ -42,7 +42,7 @@ const colors = {
         active: "#FFFFFF",
         inactive: "#a9a9a9",
 
-        button: "#FFFFFF",
+        primaryButton: "#285336",
         
         activityBackgroundLanguage: "#FFB163",
         activityBackgroundRotterdam: "#73BA81",

@@ -51,7 +51,7 @@ export default function MilestonesStack() {
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={activeColors.button}
+                  color="white"
                   style={styles.backButton}
                 />
                 <Text style={styles.backTitle}>Return</Text>
@@ -73,7 +73,7 @@ export default function MilestonesStack() {
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={activeColors.button}
+                  color="white"
                   style={styles.backButton}
                 />
                 <Text style={styles.backTitle}>Return</Text>
