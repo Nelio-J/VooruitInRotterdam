@@ -5,6 +5,7 @@ import Svg, { Path } from 'react-native-svg';
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
 
+import useActivityProgress from "@/app/components/ActivityProgressHook";
 import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
 
@@ -14,7 +15,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ActivityDataInterface, MilestoneDataInterface } from "@/app/components/MilestoneDataInterfaces";
 import { MilestoneFlagMapping } from "@/app/config/MilestoneFlagMapping";
 
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 interface ItemProps extends ActivityDataInterface {}
 
@@ -22,7 +23,10 @@ interface ItemProps extends ActivityDataInterface {}
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
 const Item = ({ id, category, title, content, image, contentExtra }: ItemProps) => {
+  const activityProgress = useActivityProgress();
   const navigation = useNavigation<ItemScreenNavigationProp>();
+
+  const completedActivities = activityProgress?.isActivityCompleted(id);
   
   const handlePress = () => {
     console.log("Tapped on item");
@@ -37,15 +41,17 @@ const Item = ({ id, category, title, content, image, contentExtra }: ItemProps) 
   };
 
   return (
-    <View style={styles.item}>
+    <Pressable style={styles.item} onPress={handlePress}>
       <MicrogoalImages name={category} style={styles.itemImage} />
-      <Pressable onPress={handlePress}>
         <View style={styles.itemRow}>
           <Text style={styles.listTitles}>{category}</Text>
-          <Ionicons name="arrow-forward" size={18} color="black" />
+          {completedActivities ? (
+            <Ionicons name="checkmark-circle" size={18} color="black" />
+          ) : (
+            <Ionicons name="arrow-forward" size={18} color="black" />
+          )}
         </View>
-      </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -96,8 +102,8 @@ export function BookmarkBottomSvgComponent() {
   );
 }
 
-export default function MicrogoalsOverviewScreen() {
-    const route = useRoute<MicrogoalssOverviewScreenProps['route']>();
+export default function MicrogoalsOverviewScreen({ route }: MicrogoalssOverviewScreenProps) {
+    // const route = useRoute<MicrogoalssOverviewScreenProps['route']>();
     console.log("ActivityScreen params:", route.params);
 
     const [fontsLoaded] = useNotoSerifFonts();

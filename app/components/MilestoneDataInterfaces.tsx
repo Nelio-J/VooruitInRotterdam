@@ -12,6 +12,6 @@ export interface ActivityDataInterface {
   category: string;
   title: string;
   content: string;
-  image?: ImageSourcePropType | string; // Can be require() or a URI string
+  image?: ImageSourcePropType | string;
   contentExtra?: string;
 }
