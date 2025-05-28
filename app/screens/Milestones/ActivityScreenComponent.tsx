@@ -3,7 +3,7 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
-import SecondaryButton from "./buttons/SecondaryButton";
+import SecondaryButton from "../../components/buttons/SecondaryButton";
 
 import { RouteProp, useRoute } from "@react-navigation/native";
 
@@ -18,6 +18,7 @@ type ActivityScreenRouteProp = RouteProp<MilestonesStackParamList, 'ActivityScre
 export default function ActivityScreen() {
   const [fontsLoaded] = useNotoSerifFonts();
   const activeColors = useActiveColors();
+  
   const route = useRoute<ActivityScreenRouteProp>();
   const { id, category, title, content, image, contentExtra } = route.params ?? {};
   console.log("ActivityScreen params:", { id, category, title, content, image });
@@ -98,7 +99,13 @@ export default function ActivityScreen() {
             
             {image && (
             <View style={styles.imageWrapper}>
-              <Image source={image} style={styles.contentImage} />
+              <Image
+                source={
+                  // If image is a string, wrap it in an object with uri. Otherwise use the image object directly. 
+                  typeof image === "string" ? { uri: image } : image
+                }
+                style={styles.contentImage}
+              />
             </View>
             )}
           </View>

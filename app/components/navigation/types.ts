@@ -1,14 +1,14 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
+import { ActivityDataInterface } from '../MilestoneDataInterfaces';
 
 // 1. Define the ParamList for the Milestones Stack Navigator (Nested Stack)
 // This navigator is specifically for the screens within the Milestones tab.
 export type MilestonesStackParamList = {
   MilestonesScreen: undefined; // The initial screen for the Milestones tab
-  MicrogoalsOverviewScreen: { id: string, category: string };
-  ActivityScreen: { id: string, category: string, title: string, content: string, image?: number | {uri: string}, contentExtra?: string } | undefined;
+  MicrogoalsOverviewScreen: { milestoneId: string };
+  ActivityScreen: ActivityDataInterface;
 };
 
 // 2. Define the ParamList for the Main Tab Navigator

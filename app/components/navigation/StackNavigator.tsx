@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MilestonesStackParamList } from "./types";
 
-import ActivityScreen from "@/app/components/ActivityScreenComponent";
+import ActivityScreen from "@/app/screens/Milestones/ActivityScreenComponent";
 import MicrogoalsOverviewScreen from "@/app/screens/Milestones/MicrogoalsOverviewScreen";
 import MilestonesScreen from "@/app/screens/MilestonesScreen";
 
