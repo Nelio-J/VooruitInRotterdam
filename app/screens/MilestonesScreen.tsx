@@ -14,6 +14,8 @@ import { MilestonesStackParamList } from "../components/navigation/types";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 console.log("Screen dimensions:", screenWidth, screenHeight);
 
+
+
 export default function MilestonesScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">>();
   const activeColors = useActiveColors();
@@ -30,26 +32,20 @@ export default function MilestonesScreen() {
         locationY >= flag.y &&
         locationY <= flag.y + flag.height
       ) {
-        console.log("Tapped on flag:", flag.id);
-        // on tap --> navigate to the flag's details screen
-        if (flag.screenToNavigateTo === "MicrogoalsOverviewScreen") {
-          // If MicrogoalsOverviewScreen needs 'id' and 'category'
+        console.log("Tapped on flag:", flag.id, "-> Navigating to milestone:", flag.milestoneId);
+
+        if (flag.milestoneId !== undefined) {
           navigation.push("MicrogoalsOverviewScreen", {
-            id: flag.targetCategoryId || flag.id,
-            category: flag.targetCategoryId || "DefaultCategory",
+            milestoneId: flag.milestoneId,
           });
-        } else if (flag.screenToNavigateTo) {
-          // Fallback for screens that expect `undefined` or no params
-          // Use a type assertion to tell TypeScript it's OK to call with no second argument
-          // for screens defined as `ScreenName: undefined;` in your ParamList
-          navigation.push(flag.screenToNavigateTo as any); // Use 'as any' as a last resort if you can't satisfy strict types
-                                                              // OR ensure your ParamList defines these screens as `ScreenName: undefined;`
+        } else {
+          console.warn("Flag milestoneId is undefined for flag:", flag.id);
         }
         return;
       }
-    }
     console.log("Tapped outside any defined flag area.");
-  };
+  }
+};
 
   return (
     <View

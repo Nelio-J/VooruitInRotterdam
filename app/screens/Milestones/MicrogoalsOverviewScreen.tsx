@@ -5,85 +5,53 @@ import Svg, { Path } from 'react-native-svg';
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
 
+import useActivityProgress from "@/app/components/ActivityProgressHook";
 import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
 
-import { MilestonesStackParamList } from "@/app/components/navigation/types";
-import { useNavigation } from "@react-navigation/native";
+import { MicrogoalssOverviewScreenProps, MilestonesStackParamList } from "@/app/components/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    category: 'Language',
-    title: "Language Activity",
-    content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
-    image: require("@/assets/images/app-logo.png"),
-    contentExtra: "This is additional content for the language activity. It provides more context and information about the activity. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    category: 'Rotterdam',
-    title: "Rotterdam Activity",
-    content: "This is the description of the Rotterdam activity. It provides details about what the activity entails and how to complete it.",
-    image: require("@/assets/images/app-logo.png"),
-    contentExtra: "This is additional content for the Rotterdam activity. It provides more context and information about the activity.",
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    category: 'Integration',
-    title: "Integration Activity",
-    content: "This is the description of the integration activity. It provides details about what the activity entails and how to complete it.",
-    image: require("@/assets/images/app-logo.png"),
-    contentExtra: "",
-  },
-    {
-    id: '58694a0f-3da1-471f-bd96-1478gfd7g8f2',
-    category: 'Social',
-    title: "Social Activity",
-    content: "This is the description of the social activity. It provides details about what the activity entails and how to complete it.",
-    image: "",
-    contentExtra: "",
-  },
-];
+import { ActivityDataInterface, MilestoneDataInterface } from "@/app/components/MilestoneDataInterfaces";
+import { MilestoneFlagMapping } from "@/app/config/MilestoneFlagMapping";
 
-type ItemProps = {
-  id: string;
-  category: string
-  title: string;
-  content: string;
-  image?: any;
-  contentExtra?: string;
-};
+import { useNavigation } from "@react-navigation/native";
+
+interface ItemProps extends ActivityDataInterface {}
 
 // Define the type for the navigation object within the Item component's context
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
 const Item = ({ id, category, title, content, image, contentExtra }: ItemProps) => {
+  const activityProgress = useActivityProgress();
   const navigation = useNavigation<ItemScreenNavigationProp>();
+
+  const completedActivities = activityProgress?.isActivityCompleted(id);
   
   const handlePress = () => {
     console.log("Tapped on item");
     navigation.navigate("ActivityScreen", {
-      id: id,
-      category: category,
-      title: title,
-      content: content,
-      image: image, // Pass the image if it exists
-      contentExtra: contentExtra, // Pass additional content if it exists
+      id,
+      category,
+      title,
+      content,
+      image, // Pass the image if it exists
+      contentExtra, // Pass additional content if it exists
     });
   };
 
   return (
-    <View style={styles.item}>
+    <Pressable style={styles.item} onPress={handlePress}>
       <MicrogoalImages name={category} style={styles.itemImage} />
-      <Pressable onPress={handlePress}>
         <View style={styles.itemRow}>
           <Text style={styles.listTitles}>{category}</Text>
-          <Ionicons name="arrow-forward" size={18} color="black" />
+          {completedActivities ? (
+            <Ionicons name="checkmark-circle" size={18} color="black" />
+          ) : (
+            <Ionicons name="arrow-forward" size={18} color="black" />
+          )}
         </View>
-      </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -134,24 +102,40 @@ export function BookmarkBottomSvgComponent() {
   );
 }
 
-export default function MicrogoalsOverviewScreen() {
+export default function MicrogoalsOverviewScreen({ route }: MicrogoalssOverviewScreenProps) {
+    // const route = useRoute<MicrogoalssOverviewScreenProps['route']>();
+    console.log("ActivityScreen params:", route.params);
+
     const [fontsLoaded] = useNotoSerifFonts();
     const activeColors = useActiveColors();
 
+    const { milestoneId } = route.params ?? {};
+
+    const currentMilestoneData: MilestoneDataInterface | undefined = MilestoneFlagMapping[milestoneId];
+
     if (!fontsLoaded) return null;
+
+    if (!currentMilestoneData) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ color: activeColors.text, fontSize: 18 }}>Milestone data not found.</Text>
+        <Text style={{ color: activeColors.text }}>ID: {milestoneId}</Text>
+      </View>
+    );
+  }
     
     return (
       <View
         style={[styles.container, { backgroundColor: activeColors.background }]}
       >
         <BookmarkSvgComponent>
-            <Text style={[styles.H1, {color: activeColors.text}]}>Milestone 1</Text>
+            <Text style={[styles.H1, {color: activeColors.text}]}>{currentMilestoneData.milestoneTitle}</Text>
         </BookmarkSvgComponent>
-        <Text style={[styles.H2, {color: activeColors.text}]}>The first steps</Text>
+        <Text style={[styles.H2, {color: activeColors.text}]}>{currentMilestoneData.milestoneSubtitle}</Text>
         <BookmarkBottomSvgComponent />
         <Text style={[styles.H3, {color: activeColors.text}]}>Learn about</Text>
         <FlatList 
-        data={DATA} 
+        data={currentMilestoneData.activities} 
         renderItem={({item}) => (
         <Item 
           id={item.id}

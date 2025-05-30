@@ -1,4 +1,3 @@
-import { MilestonesStackParamList } from "./navigation/types";
 
 interface FlagArea {
   id: string;
@@ -7,11 +6,8 @@ interface FlagArea {
   width: number; // Width of the clickable area
   height: number; // Height of the clickable area
   
-  // You might also want to store an action or data associated with this flag
+  milestoneId?: string;
   action?: () => void;
-  screenToNavigateTo?: keyof MilestonesStackParamList; // Example for navigation
-  dataId?: string; // Example for passing data
-  targetCategoryId?: string; // For MicrogoalsOverviewScreen
 }
 
 const MilestoneFlags: FlagArea[] = [
@@ -22,8 +18,7 @@ const MilestoneFlags: FlagArea[] = [
     width: 136,
     height: 123,
     action: () => console.log("Flag 1 clicked"),
-    screenToNavigateTo: "MicrogoalsOverviewScreen",
-    // dataId: "milestone-data-1",
+    milestoneId: "milestone1", // 'milestone1' should match the data file key
   },
   {
     id: "flag2",
@@ -32,8 +27,7 @@ const MilestoneFlags: FlagArea[] = [
     width: 89,
     height: 82,
     action: () => console.log("Flag 2 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    // dataId: "milestone-data-2",
+    milestoneId: "milestone2",
   },
   {
     id: "flag3",

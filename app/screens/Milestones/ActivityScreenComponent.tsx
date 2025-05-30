@@ -1,26 +1,42 @@
 import * as React from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
-import SecondaryButton from "./buttons/SecondaryButton";
+import SecondaryButton from "../../components/buttons/SecondaryButton";
 
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 
 import { MilestonesStackParamList } from "@/app/components/navigation/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+import useActivityProgress from "@/app/components/ActivityProgressHook";
 import useActiveColors from "@/app/components/activeColorsHook";
 import { useNotoSerifFonts } from "@/assets/fonts/NotoSerifFontConfig";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type ActivityScreenRouteProp = RouteProp<MilestonesStackParamList, 'ActivityScreen'>;
+type ActivityScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, 'ActivityScreen'>;
 
-export default function ActivityScreen() {
+export default function ActivityScreen({ route }: { route: ActivityScreenRouteProp }) {
   const [fontsLoaded] = useNotoSerifFonts();
   const activeColors = useActiveColors();
-  const route = useRoute<ActivityScreenRouteProp>();
+  const activityProgress = useActivityProgress();
+  
+  const navigation = useNavigation<ActivityScreenNavigationProp>();
+
   const { id, category, title, content, image, contentExtra } = route.params ?? {};
   console.log("ActivityScreen params:", { id, category, title, content, image });
+
+  const completeActivity = () => {
+    if (id) {
+      activityProgress?.markActivityAsCompleted(id);
+      navigation.popToTop();
+    }
+    else {
+      console.warn("No activity ID provided to completeActivity.");
+    }
+  }
 
   if (!fontsLoaded) return null;
 
@@ -98,7 +114,13 @@ export default function ActivityScreen() {
             
             {image && (
             <View style={styles.imageWrapper}>
-              <Image source={image} style={styles.contentImage} />
+              <Image
+                source={
+                  // If image is a string, wrap it in an object with uri. Otherwise use the image object directly. 
+                  typeof image === "string" ? { uri: image } : image
+                }
+                style={styles.contentImage}
+              />
             </View>
             )}
           </View>
@@ -108,7 +130,7 @@ export default function ActivityScreen() {
             </Text>
         
           <View style={styles.buttonContainer}>
-            <SecondaryButton onPress={() => console.log("pressed")} />
+            <SecondaryButton onPress={completeActivity} />
           </View>
         </ScrollView>
 
