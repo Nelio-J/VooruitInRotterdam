@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getData, storeData } from "../config/asyncStorage";
+import { getData, removeData, storeData } from "../config/asyncStorage";
 import { ActivityProgressContext } from "./ActivityProgressContext";
 
 export interface CompletedActivities {
@@ -10,6 +10,7 @@ export interface ActivityProgressState {
     completedActivities: CompletedActivities;
     markActivityAsCompleted: (activityId: string) => void;
     isActivityCompleted: (activityId: string) => boolean;
+    removeActivity: (activityId: string) => void;
 }
 
 interface ActivityProgressProviderProps {
@@ -23,12 +24,16 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
   const [isLoading, setIsLoading] = React.useState(true);
 
   const loadProgress = async () => {
-    setIsLoading(true);
-    const storedProgress = await getData(ASYNC_STORAGE_PROGRESS_KEY);
-    if (storedProgress) {
-      setCompletedActivities(storedProgress);
+    try {
+      setIsLoading(true);
+      const storedProgress = await getData(ASYNC_STORAGE_PROGRESS_KEY);
+      if (storedProgress) {
+        setCompletedActivities(storedProgress);
+      }
+      setIsLoading(false);
+    } catch (e) {
+      alert(e);
     }
-    setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -52,6 +57,10 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
     return !!completedActivities[activityId];
   };
 
+  const removeActivity = (activityId: string) => {
+    removeData(ASYNC_STORAGE_PROGRESS_KEY);
+  };
+
   // If the data is still loading, return null to avoid rendering the context too early
   if (isLoading) {
     return null;
@@ -63,6 +72,7 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
         completedActivities,
         markActivityAsCompleted,
         isActivityCompleted,
+        removeActivity,
       }}
     >
       {children}

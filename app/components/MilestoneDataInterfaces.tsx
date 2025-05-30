@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { ImageSourcePropType } from "react-native";
 
 export interface MilestoneDataInterface {
@@ -11,7 +12,7 @@ export interface ActivityDataInterface {
   id: string;
   category: string;
   title: string;
-  content: string;
+  content: ReactNode | string;
   image?: ImageSourcePropType | string;
-  contentExtra?: string;
+  contentExtra?: ReactNode | string;
 }

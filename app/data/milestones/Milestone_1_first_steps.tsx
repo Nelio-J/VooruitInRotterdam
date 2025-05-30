@@ -1,4 +1,20 @@
-import { MilestoneDataInterface } from "@/app/components/MilestoneDataInterfaces"
+import { MilestoneDataInterface } from "@/app/components/MilestoneDataInterfaces";
+import * as React from "react";
+import { Linking, StyleSheet, Text } from "react-native";
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    minWidth: 0, // Allow text to shrink if needed
+    fontSize: 16,
+    fontFamily: "NotoSerif_400Regular",
+    paddingVertical: 10,
+    marginRight: 10,
+  },
+  link: {
+    textDecorationLine: "underline",
+  },
+});
 
 export const MilestoneData1: MilestoneDataInterface = {
   milestoneId: "milestone_1_first_steps",
@@ -24,18 +40,21 @@ export const MilestoneData1: MilestoneDataInterface = {
   {
     id: "m1-integration",
     category: "Integration",
-    title: "Integration Activity",
-    content: "This is the description of the integration activity. It provides details about what the activity entails and how to complete it.",
-    image: require("@/assets/images/app-logo.png"),
-    contentExtra: "",
+    title: "Important terms",
+    content: "",
+    image: "",
+    contentExtra: `3 words that you are gonna hear a lot:
+    \u2022 Inburgering 
+    \u2022 Gemeente 
+    \u2022 Taalles`,
   },
     {
     id: "m1-social",
     category: "Social",
-    title: "Social Activity",
-    content: "This is the description of the social activity. It provides details about what the activity entails and how to complete it.",
+    title: "Activities in the camp",
+    content: <Text style={[styles.content]}>Mano offers fun and helpful activities in the camp. <></> <Text onPress={() => Linking.openURL('https://welkominrotterdam.com/')} style={styles.link}>View this week's activities</Text></Text>,
     image: "",
-    contentExtra: "",
+    contentExtra: "Take a look and find an activity in the camp that looks interesting for you to join!",
   },
   ]
 }
