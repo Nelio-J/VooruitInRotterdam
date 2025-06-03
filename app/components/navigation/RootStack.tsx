@@ -20,6 +20,7 @@ export default function RootStack() {
   const [appIsReady, setAppIsReady] = React.useState(false);
 
   React.useEffect(() => {
+
     async function prepare() {
       try {
         // Pre-load fonts, make any API calls you need to do here
@@ -61,6 +62,7 @@ export default function RootStack() {
             component={TabNavigator}
             options={{
               headerShown: false,
+              navigationBarHidden: true,
             }}
           />
           {/* Add any other top-level screens NOT part of the tab flow here
