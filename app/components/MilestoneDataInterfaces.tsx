@@ -10,6 +10,7 @@ export interface MilestoneDataInterface {
 
 export interface ActivityDataInterface {
   id: string;
+  milestoneId: string;
   category: string;
   title: string;
   content: ReactNode | string;

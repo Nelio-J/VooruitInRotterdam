@@ -7,6 +7,9 @@ interface FlagArea {
   height: number; // Height of the clickable area
   
   milestoneId?: string;
+  totalActivities?: number;
+  progressTextX?: number;
+  progressTextY?: number;
   action?: () => void;
 }
 
@@ -16,18 +19,24 @@ const MilestoneFlags: FlagArea[] = [
     x: 296,
     y: 568,
     width: 136,
-    height: 123,
-    action: () => console.log("Flag 1 clicked"),
+    height: 123,    
     milestoneId: "milestone1", // 'milestone1' should match the data file key
+    totalActivities: 5,
+    progressTextX: 190,
+    progressTextY: 550,
+    action: () => console.log("Flag 1 clicked"),
   },
   {
     id: "flag2",
     x: 520,
     y: 518,
     width: 89,
-    height: 82,
-    action: () => console.log("Flag 2 clicked"),
+    height: 82,    
     milestoneId: "milestone2",
+    totalActivities: 4,
+    progressTextX: 385,
+    progressTextY: 492,
+    action: () => console.log("Flag 2 clicked"),
   },
   {
     id: "flag3",
