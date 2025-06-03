@@ -23,6 +23,7 @@ export const MilestoneData1: MilestoneDataInterface = {
   activities: [
      {
     id: "m1-language",
+    milestoneId: "milestone1",
     category: "Language",
     title: "Language Activity",
     content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
@@ -31,6 +32,7 @@ export const MilestoneData1: MilestoneDataInterface = {
   },
   {
     id: "m1-rotterdam",
+    milestoneId: "milestone1",
     category: "Rotterdam",
     title: "Rotterdam Activity",
     content: "This is the description of the Rotterdam activity. It provides details about what the activity entails and how to complete it.",
@@ -39,6 +41,7 @@ export const MilestoneData1: MilestoneDataInterface = {
   },
   {
     id: "m1-integration",
+    milestoneId: "milestone1",
     category: "Integration",
     title: "Important terms",
     content: "",
@@ -50,6 +53,7 @@ export const MilestoneData1: MilestoneDataInterface = {
   },
     {
     id: "m1-social",
+    milestoneId: "milestone1",
     category: "Social",
     title: "Activities in the camp",
     content: <Text style={[styles.content]}>Mano offers fun and helpful activities in the camp. <></> <Text onPress={() => Linking.openURL('https://welkominrotterdam.com/')} style={styles.link}>View this week's activities</Text></Text>,

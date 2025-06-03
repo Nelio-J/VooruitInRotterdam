@@ -9,6 +9,7 @@ export type MilestonesStackParamList = {
   MilestonesScreen: undefined; // The initial screen for the Milestones tab
   MicrogoalsOverviewScreen: { milestoneId: string };
   ActivityScreen: ActivityDataInterface;
+  ActivityCompletionScreen: undefined;
 };
 
 // 2. Define the ParamList for the Main Tab Navigator
@@ -34,6 +35,7 @@ export type RootStackParamList = {
 export type MilestonesScreenProps = NativeStackScreenProps<MilestonesStackParamList, "MilestonesScreen">;
 export type MicrogoalssOverviewScreenProps = NativeStackScreenProps<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 export type ActivityScreenProps = NativeStackScreenProps<MilestonesStackParamList, "ActivityScreen">;
+export type ActivityCompletionScreenProps = NativeStackScreenProps<MilestonesStackParamList, "ActivityCompletionScreen">;
 
 
 // For screens directly within the TabNavigator

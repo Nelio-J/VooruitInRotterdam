@@ -7,6 +7,7 @@ export const MilestoneData2: MilestoneDataInterface = {
   activities: [
      {
     id: "m2-language",
+    milestoneId: "milestone2",
     category: "Language",
     title: "Language Activity 2",
     content: "This is the description of the language activity. It provides details about what the activity entails and how to complete it.",
@@ -15,6 +16,7 @@ export const MilestoneData2: MilestoneDataInterface = {
   },
   {
     id: "m2-rotterdam",
+    milestoneId: "milestone2",
     category: "Rotterdam",
     title: "Rotterdam Activity 2",
     content: "This is the description of the Rotterdam activity. It provides details about what the activity entails and how to complete it.",
@@ -23,6 +25,7 @@ export const MilestoneData2: MilestoneDataInterface = {
   },
   {
     id: "m2-integration",
+    milestoneId: "milestone2",
     category: "Integration",
     title: "Integration Activity 2",
     content: "This is the description of the integration activity. It provides details about what the activity entails and how to complete it.",
@@ -31,6 +34,7 @@ export const MilestoneData2: MilestoneDataInterface = {
   },
     {
     id: "m2-social",
+    milestoneId: "milestone2",
     category: "Social",
     title: "Social Activity 2",
     content: "This is the description of the social activity. It provides details about what the activity entails and how to complete it.",

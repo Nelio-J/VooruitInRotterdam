@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
@@ -25,13 +24,13 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
   
   const navigation = useNavigation<ActivityScreenNavigationProp>();
 
-  const { id, category, title, content, image, contentExtra } = route.params ?? {};
-  console.log("ActivityScreen params:", { id, category, title, content, image });
+  const { id, milestoneId, category, title, content, image, contentExtra } = route.params ?? {};
+  console.log("ActivityScreen params:", { id, milestoneId, category, title, content, image, contentExtra });
 
   const completeActivity = () => {
     if (id) {
-      activityProgress?.markActivityAsCompleted(id);
-      navigation.popToTop();
+      activityProgress?.markActivityAsCompleted(milestoneId, id);
+      navigation.navigate("ActivityCompletionScreen");
     }
     else {
       console.warn("No activity ID provided to completeActivity.");
@@ -85,7 +84,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
   }
 
   return (
-    <SafeAreaView
+    <View
       style={[styles.container, { backgroundColor: activityBackgroundColor }]}
     >
       <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} />
@@ -135,7 +134,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
         </ScrollView>
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

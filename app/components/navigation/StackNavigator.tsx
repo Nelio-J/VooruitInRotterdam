@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MilestonesStackParamList } from "./types";
 
+import ActivityCompletionScreen from "@/app/screens/ActivityCompletionScreen";
 import ActivityScreen from "@/app/screens/Milestones/ActivityScreenComponent";
 import MicrogoalsOverviewScreen from "@/app/screens/Milestones/MicrogoalsOverviewScreen";
 import MilestonesScreen from "@/app/screens/MilestonesScreen";
@@ -81,6 +82,13 @@ export default function MilestonesStack() {
             );
           },
         })}
+      />
+      <Stack.Screen
+        name="ActivityCompletionScreen"
+        component={ActivityCompletionScreen}
+        options={{
+          headerShown: false,          
+        }}
       />
     </Stack.Navigator>
   );

@@ -22,16 +22,18 @@ interface ItemProps extends ActivityDataInterface {}
 // Define the type for the navigation object within the Item component's context
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
-const Item = ({ id, category, title, content, image, contentExtra }: ItemProps) => {
+const Item = ({ id, milestoneId, category, title, content, image, contentExtra }: ItemProps) => {
   const activityProgress = useActivityProgress();
   const navigation = useNavigation<ItemScreenNavigationProp>();
 
-  const completedActivities = activityProgress?.isActivityCompleted(id);
+  const completedActivities = activityProgress?.isActivityCompleted(milestoneId, id);
+  console.log("Activity completed:", completedActivities, "for ID:", id + " in milestone:", milestoneId);
   
   const handlePress = () => {
     console.log("Tapped on item");
     navigation.navigate("ActivityScreen", {
       id,
+      milestoneId,
       category,
       title,
       content,
@@ -137,8 +139,9 @@ export default function MicrogoalsOverviewScreen({ route }: MicrogoalssOverviewS
         <FlatList 
         data={currentMilestoneData.activities} 
         renderItem={({item}) => (
-        <Item 
+        <Item
           id={item.id}
+          milestoneId={milestoneId}
           category={item.category}
           title={item.title}
           content={item.content}
