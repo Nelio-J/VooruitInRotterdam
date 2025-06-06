@@ -74,6 +74,13 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
       titleColor = activeColors.text;
       textColor = activeColors.alt_text;
       break;
+    case "Work":
+      activityBackgroundColor = activeColors.activityBackgroundWork;
+      activityAccentColor = activeColors.activityAccentWork;
+      titleBackgroundColor = activeColors.text
+      titleColor = activeColors.alt_text;
+      textColor = activeColors.text;
+      break;
     default:
       activityBackgroundColor = activeColors.activityAccentRotterdam;
       activityAccentColor = activeColors.activityAccentRotterdam;
@@ -87,7 +94,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
     <View
       style={[styles.container, { backgroundColor: activityBackgroundColor }]}
     >
-      <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} />
+      <MicrogoalImages name={category ?? "Language"} style={{ width: "100%", height: "25%" }} alt={""} />
       <View style={styles.titleContainerWrapper}>
       <View style={[styles.titleContainer, { backgroundColor: activityAccentColor }]}>
         <Text style={[styles.title, { color: titleColor }]}>{category}</Text>
@@ -96,7 +103,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
       </View>
 
       <View style={styles.contentContainer}>
-        
+        <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
         <View style={styles.headerRow}>
           <Text style={[styles.H1, { color: textColor }]}>{title}</Text>
           <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}>
@@ -105,7 +112,6 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
           </Pressable>
         </View>
         
-        <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
           <View style={styles.textImageRow}>
             <Text style={[styles.content, { color: textColor }]}>
               {content}
@@ -119,6 +125,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
                   typeof image === "string" ? { uri: image } : image
                 }
                 style={styles.contentImage}
+                alt=""
               />
             </View>
             )}
@@ -178,6 +185,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 10,
+    gap: 10,
     flex: 1,
     justifyContent: "flex-start",
   },
@@ -223,7 +231,6 @@ const styles = StyleSheet.create({
     minWidth: 0, // Allow text to shrink if needed
     fontSize: 16,
     fontFamily: "NotoSerif_400Regular",
-    paddingVertical: 10,
     marginRight: 10,
   },
   imageWrapper: {

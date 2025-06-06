@@ -1,3 +1,4 @@
+
 const colors = {
     light: {
         primary: "#00811F",
@@ -20,11 +21,13 @@ const colors = {
         activityBackgroundRotterdam: "#73BA81",
         activityBackgroundIntegration: "#FFCD4D",
         activityBackgroundSocial: "#2C5777",
+        activityBackgroundWork: "#F9FFD8",
 
         activityAccentLanguage: "#F9FFD8",
         activityAccentRotterdam: "#2C5777",
         activityAccentIntegration: "#181D27",
         activityAccentSocial: "#EFF4F6",
+        activityAccentWork: "#285336",
     },
 
     dark: {
@@ -48,11 +51,13 @@ const colors = {
         activityBackgroundRotterdam: "#73BA81",
         activityBackgroundIntegration: "#FFCD4D",
         activityBackgroundSocial: "#2C5777",
+        activityBackgroundWork: "#F9FFD8",
 
         activityAccentLanguage: "#F9FFD8",
         activityAccentRotterdam: "#2C5777",
         activityAccentIntegration: "#181D27",
         activityAccentSocial: "#EFF4F6",
+        activityAccentWork: "#285336",
        
         // tertiary: "#D2B48C",
         // quaternary: "#973500",

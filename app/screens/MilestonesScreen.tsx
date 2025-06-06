@@ -86,7 +86,7 @@ export default function MilestonesScreen() {
   if (loading) {
       return (
         <View style={[styles.container, { justifyContent: "center", alignItems: "center", backgroundColor: activeColors.secondary }]}>
-          <ActivityIndicator size="large" color={activeColors.primary} />
+          <ActivityIndicator size="large" color={activeColors.contrast} />
         </View>
       );
     }
