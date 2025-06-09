@@ -121,6 +121,13 @@ export const MilestoneData3: MilestoneDataInterface = {
             <Text style={[styles.bulletList]}>
               {"\u2B24"} Christmas (25 and 26 December)
               {"\n"}
+              <Image
+                source={{
+                  uri: "https://images.pubble.cloud/worker/jpg/quick/1920/51188/d9f3425a/content/2022/12/dd708102-ebbe-45fe-b02a-ecfaa9c00730",
+                }}
+                style={styles.contentImage}
+                alt="An image of the King's Day celebration in Rotterdam, showing people dressed in orange and celebrating."
+              ></Image>
               A very festive time of year. Many people celebrate Christmas
               with family, friends, good food, and gifts.
             </Text>

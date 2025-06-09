@@ -11,11 +11,14 @@ import MilestoneFlags from "../components/MilestoneFlags";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MilestonesStackParamList } from "../components/navigation/types";
+import { MilestoneFlagMapping } from "../config/MilestoneFlagMapping";
+
+import PrimaryButton from "../components/buttons/PrimaryButton";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 console.log("Screen dimensions:", screenWidth, screenHeight);
 
-export interface completedActivitiesType {
+export interface CompletedActivitiesType {
   [milestoneId: string]: number;
 }
 
@@ -25,7 +28,7 @@ export default function MilestonesScreen() {
   const activeColors = useActiveColors();
 
   const [loading, setLoading] = React.useState(true);
-  const [completedActivities, setCompletedActivities] = React.useState<completedActivitiesType>({});
+  const [completedActivities, setCompletedActivities] = React.useState<CompletedActivitiesType>({});
 
   React.useEffect(() => {
 
@@ -33,7 +36,7 @@ export default function MilestonesScreen() {
       setLoading(true);
       console.log(loading);
       setTimeout(() => {
-        const counts: completedActivitiesType = {};
+        const counts: CompletedActivitiesType = {};
         MilestoneFlags.forEach((flag) => {
           if (flag.milestoneId) {
             counts[flag.milestoneId] =
@@ -42,7 +45,7 @@ export default function MilestonesScreen() {
         });
         setCompletedActivities(counts)        
         setLoading(false);
-      }, 500); // Simulate loading delay
+      }, 200); // Simulate loading delay
     };
 
     // Run once on mount
@@ -83,6 +86,45 @@ export default function MilestonesScreen() {
   }
 };
 
+
+  const findNextUncompletedMilestone = (): string | undefined => {
+    for (const flag of MilestoneFlags) {
+      const milestoneId = flag.milestoneId;
+
+      // Use the milestoneId to look up the corresponding milestone data from the MilestoneFlagMapping
+      // If milestoneId is undefined, milestoneData will also be undefined
+      const milestoneData = milestoneId ? MilestoneFlagMapping[milestoneId] : undefined;
+      
+      const totalCount = milestoneData?.activities.length ?? 0;
+
+      // Determine how many activities have been completed for this milestone
+      // If milestoneId is missing or there is no entry in completedActivities, default to 0
+      const completedCount = milestoneId && completedActivities[milestoneId] ? completedActivities[milestoneId] : 0;
+
+      // If the activities of this milestone are not fully completed, return this milestoneId
+      if (milestoneId && completedCount < totalCount) {
+        return milestoneId;
+      }
+    }
+    // If all milestones are completed, return undefined
+    return undefined;
+  };
+
+  const handleNextStep = () => {
+    console.log("Next step button pressed");
+    const nextMilestoneId = findNextUncompletedMilestone();
+
+    if (nextMilestoneId) {
+      console.log("Navigating to next uncompleted milestone:", nextMilestoneId);
+      navigation.push("MicrogoalsOverviewScreen", {
+        milestoneId: nextMilestoneId,
+      });
+    } 
+    else {
+      console.log("All milestones completed!");
+    }
+  };
+
   if (loading) {
       return (
         <View style={[styles.container, { justifyContent: "center", alignItems: "center", backgroundColor: activeColors.secondary }]}>
@@ -95,35 +137,56 @@ export default function MilestonesScreen() {
     <View
       style={[styles.container, { backgroundColor: activeColors.secondary }]}
     >
-      <ReactNativeZoomableView
-        contentWidth={screenWidth}
-        contentHeight={screenHeight}
-        minZoom={1}
-        maxZoom={30}
-        initialZoom={1}
-        bindToBorders={true}
-        zoomStep={0.5}
-        disablePanOnInitialZoom={true}
-      >
-        <Pressable onPress={handlePress}>
-          <MilestoneBackground />
-        </Pressable>
+      <View style={styles.zoomableContainer}>
 
-        {MilestoneFlags.map((flag) => (
-          flag.milestoneId && flag.progressTextX !== undefined && flag.progressTextY !== undefined && completedActivities[flag.milestoneId] >= 1 && flag.totalActivities !== undefined &&(
-          <View
-          key={flag.id}
-          style={[
-            styles.progressOverlay, { left: flag.progressTextX, top: flag.progressTextY }, { backgroundColor: completedActivities[flag.milestoneId] < flag.totalActivities ? activeColors.contrast : activeColors.secondary,}]}
-          >  
-          <Text style={styles.progressText}>
-            {`${flag.milestoneId ? Math.round(((completedActivities[flag.milestoneId] || 0) / flag.totalActivities!) * 100) : 0}%`}
-          </Text>
-          </View>
-          )
-          ))}
-      </ReactNativeZoomableView>
+        <ReactNativeZoomableView
+          contentWidth={screenWidth}
+          contentHeight={screenHeight}
+          minZoom={1}
+          maxZoom={30}
+          initialZoom={1}
+          bindToBorders={true}
+          zoomStep={0.5}
+          disablePanOnInitialZoom={true}
+        >
+          <Pressable onPress={handlePress}>
+            <MilestoneBackground />
+          </Pressable>
 
+          {MilestoneFlags.map((flag) => {
+            if (
+              flag.milestoneId &&
+              flag.progressTextX !== undefined &&
+              flag.progressTextY !== undefined &&
+              completedActivities[flag.milestoneId] >= 1
+            ) {
+              const milestoneData = MilestoneFlagMapping[flag.milestoneId];
+              const totalActivities = milestoneData?.activities.length ?? 0;
+
+              return (
+                <View
+                  key={flag.id}
+                  style={[
+                    styles.progressOverlay,
+                    { left: flag.progressTextX, top: flag.progressTextY },
+                    {
+                      backgroundColor: completedActivities[flag.milestoneId] < totalActivities ? activeColors.contrast : activeColors.secondary,
+                    },
+                  ]}
+                >
+                  <Text style={styles.progressText}>
+                    {`${flag.milestoneId ? Math.round(((completedActivities[flag.milestoneId] || 0) / totalActivities) * 100): 0}%`}
+                  </Text>
+                </View>
+              );
+            }
+            return null;
+          })}
+        </ReactNativeZoomableView>
+        <View style={styles.absoluteButton}>
+          <PrimaryButton onPress={handleNextStep} />
+        </View>
+      </View>
     </View>
   );
 }
@@ -132,6 +195,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     overflow: "hidden",
+  },
+  zoomableContainer: {
+    flex: 1,
+    position: "relative",
+  },
+  absoluteButton: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: "center",
+    paddingBottom: 20,
+    zIndex: 10,
   },
   progressOverlay: {
     position: 'absolute',

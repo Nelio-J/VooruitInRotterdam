@@ -14,6 +14,7 @@ export interface ActivityProgressState {
     isActivityCompleted: (milestoneId: string, activityId: string) => boolean;
     removeActivity: (milestoneId: string, activityId: string) => void;
     countCompletedActivities: (milestoneId: string) => number;
+    clearAllProgress: () => void;
     // isMilestoneCompleted: (milestoneId: string, totalActivites: number) => boolean;
 }
 
@@ -78,6 +79,11 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
         removeData(ASYNC_STORAGE_PROGRESS_KEY);
     };
 
+    const clearAllProgress = async () => {
+      await removeData(ASYNC_STORAGE_PROGRESS_KEY);
+      setCompletedActivities({});
+    };
+
     const countCompletedActivities = (milestoneId: string): number => {
         const count = completedActivities[milestoneId];
 
@@ -102,6 +108,7 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
             markActivityAsCompleted,
             isActivityCompleted,
             removeActivity,
+            clearAllProgress,
             countCompletedActivities,
         }}
         >
