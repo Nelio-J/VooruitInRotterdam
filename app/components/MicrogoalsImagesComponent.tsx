@@ -5,10 +5,11 @@ import { microgoalImageMapping } from "../config/MicrogoalsImagesMapping";
 type MicrogoalImageProps = {
   name: string;
   style?: StyleProp<ImageStyle>;
+  alt?: string;
 };
 
-export default function MicrogoalImages({ name, style }: MicrogoalImageProps) {
+export default function MicrogoalImages({ name, style, alt }: MicrogoalImageProps) {
   const source = microgoalImageMapping[name];
   if (!source) return null;
-  return <Image source={source} style={style} resizeMode="cover"/>;
+  return <Image source={source} style={style} resizeMode="cover" alt={alt}/>;
 }

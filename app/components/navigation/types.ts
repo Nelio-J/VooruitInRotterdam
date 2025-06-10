@@ -3,7 +3,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ActivityDataInterface } from '../MilestoneDataInterfaces';
 
-// 1. Define the ParamList for the Milestones Stack Navigator (Nested Stack)
+// Define the ParamList for the Milestones Stack Navigator (Nested Stack)
 // This navigator is specifically for the screens within the Milestones tab.
 export type MilestonesStackParamList = {
   MilestonesScreen: undefined; // The initial screen for the Milestones tab
@@ -12,15 +12,14 @@ export type MilestonesStackParamList = {
   ActivityCompletionScreen: undefined;
 };
 
-// 2. Define the ParamList for the Main Tab Navigator
-// This navigator contains your main tabs.
+// This navigator contains the paramList for the main Tab navigator
 export type TabParamList = {
   Milestones: NavigatorScreenParams<MilestonesStackParamList>; // Milestones tab holds a Stack Navigator
-  Information: undefined; // Information screen (no params for the tab itself)
-  Settings: undefined; // Settings screen (no params for the tab itself)
+  Information: undefined;
+  Settings: undefined;
 };
 
-// 3. Define the ParamList for your Root Navigator (The top-level Stack)
+// Define the ParamList for your Root Navigator (The top-level Stack)
 // This navigator contains your entire app flow, including the tabs.
 export type RootStackParamList = {
   MainTabs: NavigatorScreenParams<TabParamList>; // The screen that renders your TabNavigator
@@ -29,17 +28,15 @@ export type RootStackParamList = {
 };
 
 
-// 4. Define specific Screen Props for components
+// Define specific Screen Props for components
 
-// For screens directly within the MilestonesStack
+// For screens within the MilestonesStack
 export type MilestonesScreenProps = NativeStackScreenProps<MilestonesStackParamList, "MilestonesScreen">;
 export type MicrogoalssOverviewScreenProps = NativeStackScreenProps<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 export type ActivityScreenProps = NativeStackScreenProps<MilestonesStackParamList, "ActivityScreen">;
 export type ActivityCompletionScreenProps = NativeStackScreenProps<MilestonesStackParamList, "ActivityCompletionScreen">;
 
-
-// For screens directly within the TabNavigator
-// These screens are simple, but the 'Milestones' tab is special as it hosts a stack.
+// For screens within the TabNavigator
 export type InformationScreenProps = BottomTabScreenProps<TabParamList, "Information">;
 export type SettingsScreenProps = BottomTabScreenProps<TabParamList, "Settings">;
 

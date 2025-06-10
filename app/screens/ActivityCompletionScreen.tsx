@@ -22,7 +22,6 @@ export default function ActivityCompletionScreen() {
 
   // console.log("Current nav state:", navigation.getState());
 
-
   React.useEffect(() => {
     const Timeout = setTimeout(() => { 
     navigation.popToTop();

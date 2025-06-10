@@ -26,7 +26,7 @@ export default function PrimaryButton({ onPress }: PrimaryButtonProps) {
           style={[styles.button, { backgroundColor: activeColors.primaryButton }]}
           onPress={onPress}
         >
-          <Text style={styles.buttonText}>Complete task</Text>
+          <Text style={styles.buttonText}>Next step</Text>
           <Ionicons
             name="arrow-forward"
             size={24}
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   button: {
+    position: "sticky",
     flexDirection: "row",
     justifyContent: "center",
     alignSelf: "center",

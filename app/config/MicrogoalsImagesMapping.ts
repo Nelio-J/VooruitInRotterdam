@@ -10,4 +10,6 @@ export const microgoalImageMapping: Record<string, any> = {
     RotterdamSkyline: require("../../assets/images/microgoals/RotterdamSkyline.jpg"),
     Social: require("../../assets/images/microgoals/Social1.webp"),
     Social2: require("../../assets/images/microgoals/Social2.jpg"),
+    Work: require("../../assets/images/microgoals/Work.jpg"),
+    Work2: require("../../assets/images/microgoals/Work2.webp"),
 };

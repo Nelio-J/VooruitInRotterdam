@@ -19,7 +19,6 @@ import { useNavigation } from "@react-navigation/native";
 
 interface ItemProps extends ActivityDataInterface {}
 
-// Define the type for the navigation object within the Item component's context
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
 const Item = ({ id, milestoneId, category, title, content, image, contentExtra }: ItemProps) => {
@@ -37,8 +36,8 @@ const Item = ({ id, milestoneId, category, title, content, image, contentExtra }
       category,
       title,
       content,
-      image, // Pass the image if it exists
-      contentExtra, // Pass additional content if it exists
+      image,
+      contentExtra,
     });
   };
 
@@ -131,11 +130,11 @@ export default function MicrogoalsOverviewScreen({ route }: MicrogoalssOverviewS
         style={[styles.container, { backgroundColor: activeColors.background }]}
       >
         <BookmarkSvgComponent>
-            <Text style={[styles.H1, {color: activeColors.text}]}>{currentMilestoneData.milestoneTitle}</Text>
+          <Text style={[styles.H1, {color: activeColors.text}]}>{currentMilestoneData.milestoneTitle}</Text>
         </BookmarkSvgComponent>
-        <Text style={[styles.H2, {color: activeColors.text}]}>{currentMilestoneData.milestoneSubtitle}</Text>
+          <Text style={[styles.H2, {color: activeColors.text}]}>{currentMilestoneData.milestoneSubtitle}</Text>
         <BookmarkBottomSvgComponent />
-        <Text style={[styles.H3, {color: activeColors.text}]}>Learn about</Text>
+          <Text style={[styles.H3, {color: activeColors.text}]}>Learn about</Text>
         <FlatList 
         data={currentMilestoneData.activities} 
         renderItem={({item}) => (
