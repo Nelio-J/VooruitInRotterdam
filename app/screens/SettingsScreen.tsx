@@ -1,16 +1,20 @@
 import * as React from "react";
-import { Text, View } from "react-native";
+import { Alert, Button, Text, View } from "react-native";
 
-import colors from "../config/theme";
-import { ThemeContext } from "../context/ThemeContext";
+import useActiveColors from "@/app/components/activeColorsHook";
+import useActivityProgress from "@/app/components/ActivityProgressHook";
+
+const ASYNC_STORAGE_PROGRESS_KEY = "ActivityProgressKeyV2";
 
 export default function SettingsScreen() {
-  const themeContext = React.useContext(ThemeContext);
+  const activeColors = useActiveColors();
+  const activityProgress = useActivityProgress();
 
-  // Get the current theme mode from the context
-  // Optional chaining: if the themeContext is not available, default back to "light"
-  const currentThemeMode = themeContext?.theme?.mode || "light";
-  const activeColors = colors[currentThemeMode];
+  const handleClearStorage = async () => {
+    await activityProgress?.clearAllProgress();
+    Alert.alert("Progress cleared", "All saved progress has been removed.");
+  };
+
 
   return (
     <View
@@ -22,6 +26,7 @@ export default function SettingsScreen() {
       }}
     >
       <Text>Edit app/settings.tsx to edit this screen.</Text>
+      <Button title="Reset Progress" color={activeColors.primary} onPress={handleClearStorage} />
     </View>
   );
 }

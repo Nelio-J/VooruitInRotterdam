@@ -6,10 +6,10 @@ interface FlagArea {
   width: number; // Width of the clickable area
   height: number; // Height of the clickable area
   
-  // You might also want to store an action or data associated with this flag
+  milestoneId?: string;
+  progressTextX?: number;
+  progressTextY?: number;
   action?: () => void;
-  screenToNavigateTo?: string; // Example for navigation
-  dataId?: string; // Example for passing data
 }
 
 const MilestoneFlags: FlagArea[] = [
@@ -18,20 +18,22 @@ const MilestoneFlags: FlagArea[] = [
     x: 296,
     y: 568,
     width: 136,
-    height: 123,
+    height: 123,    
+    milestoneId: "milestone1", // 'milestone1' should match the data file key
+    progressTextX: 190,
+    progressTextY: 550,
     action: () => console.log("Flag 1 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen1",
-    dataId: "milestone-data-1", // Example
   },
   {
     id: "flag2",
     x: 520,
     y: 518,
     width: 89,
-    height: 82,
+    height: 82,    
+    milestoneId: "milestone2",
+    progressTextX: 385,
+    progressTextY: 492,
     action: () => console.log("Flag 2 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    dataId: "milestone-data-2",
   },
   {
     id: "flag3",
@@ -39,9 +41,10 @@ const MilestoneFlags: FlagArea[] = [
     y: 461,
     width: 58,
     height: 53,
+    milestoneId: "milestone3",
+    progressTextX: 280,
+    progressTextY: 430,
     action: () => console.log("Flag 3 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    dataId: "milestone-data-3",
   },
   {
     id: "flag4",
@@ -51,7 +54,7 @@ const MilestoneFlags: FlagArea[] = [
     height: 36,
     action: () => console.log("Flag 4 clicked"),
     // screenToNavigateTo: "MilestoneDetailScreen2",
-    dataId: "milestone-data-4",
+    // dataId: "milestone-data-4",
   },
   {
     id: "flag5",
@@ -61,7 +64,7 @@ const MilestoneFlags: FlagArea[] = [
     height: 23,
     action: () => console.log("Flag 5 clicked"),
     // screenToNavigateTo: "MilestoneDetailScreen2",
-    dataId: "milestone-data-5",
+    // dataId: "milestone-data-5",
   },
   {
     id: "flag6",
@@ -71,7 +74,7 @@ const MilestoneFlags: FlagArea[] = [
     height: 19,
     action: () => console.log("Flag 6 clicked"),
     // screenToNavigateTo: "MilestoneDetailScreen2",
-    dataId: "milestone-data-6",
+    // dataId: "milestone-data-6",
   },
 ];
 
