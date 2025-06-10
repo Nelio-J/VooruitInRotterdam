@@ -72,11 +72,9 @@ export const MilestoneData3: MilestoneDataInterface = {
               {"\u2B24"} New Years Day (1 January)
               {"\n"}
               <Image
-                source={{
-                  uri: "https://www.rotterdamcentrum.nl/media/Bezienswaardigheden-architectuur/Erasmusbrug/Fotos/_1600xAUTO_crop_center-center_90_none_ns/Erasmusbrug-vuurwerk-rotterdam-2016-Peter-Bezemer.jpg?v=1695207845",
-                }}
+                source={require("@/assets/images/content/erasmusbrug-vuurwerk-rotterdam-2016-Peter-Bezemer.jpg")}
                 style={styles.contentImage}
-                alt="An image of the King's Day celebration in Rotterdam, showing people dressed in orange and celebrating."
+                alt="An image of the Erasmus Bridge in Rotterdam with fireworks in the background."
               ></Image>
               The start of the new year gets celebrated with fireworks and new
               year’s wishes.
@@ -97,9 +95,7 @@ export const MilestoneData3: MilestoneDataInterface = {
               {"\u2B24"} King's Day (27 April)
               {"\n"}
               <Image
-                source={{
-                  uri: "https://assets.foleon.com/eu-central-1/de-uploads-7e3kk3/48001/image_-resultaten_k_voor_iedereen_3-2.4eb81481dd45.jpg?",
-                }}
+                source={require("@/assets/images/content/koningsdag-rotterdam.jpg")}
                 style={styles.contentImage}
                 alt="An image of the King's Day celebration in Rotterdam, showing people dressed in orange and celebrating."
               ></Image>
@@ -122,11 +118,9 @@ export const MilestoneData3: MilestoneDataInterface = {
               {"\u2B24"} Christmas (25 and 26 December)
               {"\n"}
               <Image
-                source={{
-                  uri: "https://images.pubble.cloud/worker/jpg/quick/1920/51188/d9f3425a/content/2022/12/dd708102-ebbe-45fe-b02a-ecfaa9c00730",
-                }}
+                source={require("@/assets/images/content/markthal-christmas.jpg")}
                 style={styles.contentImage}
-                alt="An image of the King's Day celebration in Rotterdam, showing people dressed in orange and celebrating."
+                alt="An image of the Markthal in Rotterdam decorated for Christmas"
               ></Image>
               A very festive time of year. Many people celebrate Christmas
               with family, friends, good food, and gifts.
@@ -142,8 +136,7 @@ export const MilestoneData3: MilestoneDataInterface = {
       title: "Learn about Feyenoord",
       content:
         "Feyenoord is a famous footballclub from Rotterdam. The club is an important part of the culture of Rotterdam.",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Feyenoord_logo_since_2024.svg/2048px-Feyenoord_logo_since_2024.svg.png",
+      image: require("@/assets/images/content/Feyenoord_logo_since_2024.svg.png"),
       contentExtra: (
         <View style={styles.content}>
           <Text style={styles.contentText}>
@@ -164,11 +157,9 @@ export const MilestoneData3: MilestoneDataInterface = {
       content: (
         <Text style={[styles.content]}>
           <Image
-            source={{
-              uri: "https://www.bibliotheek.rotterdam.nl/templates/yootheme/cache/a9/141261_Bibliotheeek_Lokatie_CentraleBib-a98eec53.jpeg",
-            }}
+            source={require("@/assets/images/content/Bibliotheeek_Lokatie_Centrale.jpeg")}
             style={styles.contentImage}
-            alt="An image of a group of people sitting at a table in the library"
+            alt="An image of the Central Library Rotterdam"
           ></Image>
           {"\n"}
           The Library (Centrale Bibliotheek) is a place full of knowledge! It is
@@ -184,9 +175,7 @@ export const MilestoneData3: MilestoneDataInterface = {
             take part in all sorts of fun activities.
           </Text>
           <Image
-            source={{
-              uri: "https://www.bibliotheek.rotterdam.nl/templates/yootheme/cache/c2/Taalcaf-c2f31b4d.jpeg",
-            }}
+            source={require("@/assets/images/content/taalcafe-library-ontwikkelplein.jpeg")}
             style={styles.contentImage}
             alt="An image of a group of people sitting at a table in the library"
           />
@@ -249,9 +238,14 @@ export const MilestoneData3: MilestoneDataInterface = {
             after 6 months, you are allowed to start working. Your employer must
             apply for a Work Permit (TWV) to hire you.
           </Text>
-          <Text style={[styles.contentText, {marginBottom: 20}]}>
+          <Text style={styles.contentText}>
             Everyone can do volunteer work.
           </Text>
+          <Image
+            source={require("@/assets/images/content/zorgzaam010-wood-workshop.jpeg")}
+            style={[styles.contentImage, {marginBottom: 20}]}
+             alt="An image of two people working together in a wood workshop."
+          />
           <Text style={styles.H2}>Finding work</Text>
           <Text style={styles.contentText}>
             Finding work as a newcomer is not always easy. Luckily, help is
@@ -283,6 +277,26 @@ export const MilestoneData3: MilestoneDataInterface = {
             >
               Check out the step-by-step guides to find work as a newcomer
               (available in multiple languages)
+              {" "}
+              <Feather
+                name="external-link"
+                size={16}
+                style={{ marginLeft: 5 }}
+              />
+            </Text>
+          </View>
+
+          <View style={styles.linkContainer}>
+            <Text
+              onPress={() =>
+                Linking.openURL(
+                  "https://www.zorgzaam010.nl/en/"
+                )
+              }
+              style={styles.link}
+              accessibilityLabel="Check out the site of Zorgmzaam010, a place to volunteer for work. Opens in a new window"
+            >
+              Want to help someone out? Check out the site of Zorgzaam010. This is a platform where you can volunteer for work and make an impact in Rotterdam.
               {" "}
               <Feather
                 name="external-link"

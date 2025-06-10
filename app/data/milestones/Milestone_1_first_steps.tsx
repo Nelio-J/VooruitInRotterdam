@@ -62,7 +62,7 @@ export const MilestoneData1: MilestoneDataInterface = {
       id: "m1-language",
       milestoneId: "milestone1",
       category: "Language",
-      title: "Learn the Dutch numbers from 1 to 10.",
+      title: "Learn the Dutch numbers",
       content: (
         <Text style={[styles.content]}>
           You encounter numbers everywhere. From the price in the supermarket to
@@ -138,21 +138,29 @@ export const MilestoneData1: MilestoneDataInterface = {
             {"\u2B24"} Rotterdam has the largest port in Europe!
           </Text>
           <Image
-            source={{
-              uri: "https://www.nt.nl/wp-content/uploads/2025/05/ANP-520257517-scaled.jpg",
-            }}
+            source={require("@/assets/images/content/port-of-rotterdam.jpg")}
             style={styles.contentImage}
             alt="An image of the port of Rotterdam"
           />
           <Text style={styles.bulletList}>
             {"\u2B24"} Rotterdam is home to people from over 170 countries. This creates a very diverse city where you can learn about different cultures.
           </Text>
+          <Image
+            source={require("@/assets/images/content/flag-parade-rotterdam.jpg")}
+            style={styles.contentImage}
+            alt="An image of the port of Rotterdam"
+          />
           <Text style={styles.bulletList}>
             {"\u2B24"} 010 is the area code for Rotterdam and a number that people value. ‘010 isn’t just a code’ is a phrase you will often hear and see in Rotterdam.
           </Text>
           <Text style={styles.bulletList}>
             {"\u2B24"} A city of "niet lullen, maar poetsen": Rotterdammers are known as hard workers. This phrase means: no talking, but getting things done! That’s why Rotterdam's motto is: Make it happen.
           </Text>
+          <Image
+            source={require("@/assets/images/content/RMIH label_2_links_wit.png")}
+            style={[styles.contentImage, { resizeMode: "contain" }]}
+            alt="An image showing weekly activities offered by Stichting Mano on the Silja ferry"
+          />
         </View>
       ),
     },
@@ -163,8 +171,7 @@ export const MilestoneData1: MilestoneDataInterface = {
       title: "Important terms",
       content:
         "As a status holder, you have to integrate. This means that you have to learn the Dutch language and learn how live in the Netherlands works.",
-      image:
-        "https://www.divosa.nl/sites/default/files/styles/large_bulb_desktop/public/2023-06/screenshot-animatievideo-inburgeren-vanaf-2022.png?itok=0fVTEEz0",
+      image: require("@/assets/images/content/divosa-inburgering-video-thumbnail.png"),
       contentExtra: `3 words that you are gonna hear a lot:
       \u2022 Inburgering 
       \u2022 Gemeente 
@@ -180,6 +187,11 @@ export const MilestoneData1: MilestoneDataInterface = {
           <Text style={[styles.contentText, { color: "white" }]}>
             Mano offers fun and helpful activities in the shelter.
           </Text>
+          <Image
+              source={require("@/assets/images/content/mano-activities.png")}
+              style={styles.contentImage}
+              alt="An image showing weekly activities offered by Stichting Mano on the Silja ferry"
+            />
           <View style={styles.linkContainer}>
             <Text
               onPress={() => Linking.openURL("https://welkominrotterdam.com/")}

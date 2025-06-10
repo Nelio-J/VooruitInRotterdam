@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import MicrogoalImages from "@/app/components/MicrogoalsImagesComponent";
 import { Ionicons } from "@expo/vector-icons";
@@ -106,7 +106,10 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
         <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
         <View style={styles.headerRow}>
           <Text style={[styles.H1, { color: textColor }]}>{title}</Text>
-          <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}>
+          <Pressable style={[styles.listenWrapper, {backgroundColor: activeColors.alt_text}]}
+           onPress={() => {
+            Alert.alert("Listen to activity", "This feature is not yet implemented.");
+          }}>
             <Text style={[styles.listenButton, {color: activeColors.text}]}>Listen</Text>
             <Ionicons name="volume-high" size={24} color={activeColors.text} style={styles.listenIcon} />
           </Pressable>
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
     maxWidth: "50%",
   },
   contentImage: {
-    width: "100%",
+    width: "95%",
     height: undefined, // This will be set by the aspectRatio
     aspectRatio: 1,
     resizeMode: "contain",

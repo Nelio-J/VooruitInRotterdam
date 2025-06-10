@@ -58,8 +58,18 @@ export const MilestoneData2: MilestoneDataInterface = {
       milestoneId: "milestone2",
       category: "Language",
       title: "Learn to introduce yourself",
-      content:
-        "You are going to meet a lot of new people in the Netherlands. It is important that you can introduce yourself.",
+      content: (
+        <Text style={[styles.content]}>
+          <Image
+            source={require("@/assets/images/content/taalcafe-library.jpg")}
+            style={styles.contentImage}
+            alt="An image of people talking in a language café."
+          />
+          {"\n"}
+          You are going to meet a lot of new people in the Netherlands. It is
+          important that you can introduce yourself.
+        </Text>
+      ),
       image: "",
       contentExtra: (
       <View style={styles.content}>
@@ -115,7 +125,7 @@ export const MilestoneData2: MilestoneDataInterface = {
       title: "How does integration work?",
       content:
         "Integrating can feel quite overwhelming. A lot comes your way when you arrive in a new country.",
-      image: "",
+      image: require("@/assets/images/content/integration-teamwork-illustration-2.png"),
       contentExtra: (
         <View style={[styles.content]}>
           <Text style={styles.contentText}>
@@ -273,6 +283,11 @@ export const MilestoneData2: MilestoneDataInterface = {
       image: "",
       contentExtra: (
       <View style={styles.content}>
+        <Image
+          source={require("@/assets/images/content/walking-and-talking-1024x683.jpg")}
+          style={styles.contentImage}
+          alt="An image of from Walking & Talking Rotterdam, showing two people walking together in a neighbourhood."
+        />
         <Text style={[styles.contentText, {color: "white"}]}>
           Try talking to a fellow resident of the shelter about where you both come from. It feels good to share your story with someone else. You might have similar experiences.
         </Text>
