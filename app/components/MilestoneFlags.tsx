@@ -31,7 +31,7 @@ const MilestoneFlags: FlagArea[] = [
     width: 89,
     height: 82,    
     milestoneId: "milestone2",
-    progressTextX: 385,
+    progressTextX: 355,
     progressTextY: 492,
     action: () => console.log("Flag 2 clicked"),
   },
