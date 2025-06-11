@@ -53,8 +53,6 @@ const MilestoneFlags: FlagArea[] = [
     width: 40,
     height: 36,
     action: () => console.log("Flag 4 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    // dataId: "milestone-data-4",
   },
   {
     id: "flag5",
@@ -63,8 +61,6 @@ const MilestoneFlags: FlagArea[] = [
     width: 25,
     height: 23,
     action: () => console.log("Flag 5 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    // dataId: "milestone-data-5",
   },
   {
     id: "flag6",
@@ -73,8 +69,6 @@ const MilestoneFlags: FlagArea[] = [
     width: 21,
     height: 19,
     action: () => console.log("Flag 6 clicked"),
-    // screenToNavigateTo: "MilestoneDetailScreen2",
-    // dataId: "milestone-data-6",
   },
 ];
 

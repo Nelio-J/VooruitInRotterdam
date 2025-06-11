@@ -30,6 +30,8 @@ export default function MilestonesScreen() {
   const [loading, setLoading] = React.useState(true);
   const [completedActivities, setCompletedActivities] = React.useState<CompletedActivitiesType>({});
 
+  // Count completed activities for each milestone when the screen is focused. 
+  // Set's the loading state to true while counting, and false when done.
   React.useEffect(() => {
 
     const runOnFocus = () => {    
@@ -73,6 +75,7 @@ export default function MilestonesScreen() {
       ) {
         console.log("Tapped on flag:", flag.id, "-> Navigating to milestone:", flag.milestoneId);
 
+        // If the pressed flag has a milestoneId, navigate to the MicrogoalsOverviewScreen
         if (flag.milestoneId !== undefined) {
           navigation.push("MicrogoalsOverviewScreen", {
             milestoneId: flag.milestoneId,
@@ -153,7 +156,10 @@ export default function MilestonesScreen() {
             <MilestoneBackground />
           </Pressable>
 
+          {/* Render the user's progress above the milestone flags */}
           {MilestoneFlags.map((flag) => {
+            // Check if the flag has a milestoneId and if the progressTextX and progressTextY are defined
+            // Only render the progress overlay if at least one activity is completed for the milestone
             if (
               flag.milestoneId &&
               flag.progressTextX !== undefined &&
