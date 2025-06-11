@@ -24,8 +24,9 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
   
   const navigation = useNavigation<ActivityScreenNavigationProp>();
 
+  // Extract parameters from the route. If the route params are not defined, use an empty object to avoid errors.
   const { id, milestoneId, category, title, content, image, contentExtra } = route.params ?? {};
-  console.log("ActivityScreen params:", { id, milestoneId, category, title, content, image, contentExtra });
+  // console.log("ActivityScreen params:", { id, milestoneId, category, title, content, image, contentExtra });
 
   const completeActivity = () => {
     if (id) {
@@ -39,6 +40,7 @@ export default function ActivityScreen({ route }: { route: ActivityScreenRoutePr
 
   if (!fontsLoaded) return null;
 
+  // Switch statement to determine colors based on the category
   let activityBackgroundColor;
   let activityAccentColor;
   let titleBackgroundColor;

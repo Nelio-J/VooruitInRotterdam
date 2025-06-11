@@ -21,7 +21,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": false
+      "edgeToEdgeEnabled": false,
+      "package": "com.nelioj.VooruitInRotterdam"
     },
     "web": {
       "bundler": "metro",
@@ -44,6 +45,12 @@
     },
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e4f1d0e1-b5e8-4f85-aca0-30b9d246f653"
+      }
     }
   }
 }

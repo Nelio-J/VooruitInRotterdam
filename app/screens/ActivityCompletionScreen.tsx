@@ -12,9 +12,6 @@ import { MilestonesStackParamList } from '../components/navigation/types';
 
 type ActivityCompletionScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, 'ActivityCompletionScreen'>;
 
-// const TRANSITION_DURATION = 2000;
-// const FADE_IN_DURATION = 500;
-
 export default function ActivityCompletionScreen() {
   const navigation = useNavigation<ActivityCompletionScreenNavigationProp>();
   const activeColors = useActiveColors();
@@ -22,6 +19,7 @@ export default function ActivityCompletionScreen() {
 
   // console.log("Current nav state:", navigation.getState());
 
+  // Navigate from this screen back to the top of the stack after a short delay
   React.useEffect(() => {
     const Timeout = setTimeout(() => { 
     navigation.popToTop();

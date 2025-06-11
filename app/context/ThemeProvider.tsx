@@ -48,7 +48,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     // Update and Store the new theme in async storage
     setTheme(newTheme);
-    // storeData("PastryPathTheme", newTheme);
+    // storeData("AppTheme", newTheme);
   };
 
   return (

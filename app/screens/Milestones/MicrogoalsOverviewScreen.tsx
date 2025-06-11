@@ -17,14 +17,15 @@ import { MilestoneFlagMapping } from "@/app/config/MilestoneFlagMapping";
 
 import { useNavigation } from "@react-navigation/native";
 
-interface ItemProps extends ActivityDataInterface {}
+// interface ItemProps extends ActivityDataInterface {}
 
 type ItemScreenNavigationProp = NativeStackNavigationProp<MilestonesStackParamList, "MicrogoalsOverviewScreen">;
 
-const Item = ({ id, milestoneId, category, title, content, image, contentExtra }: ItemProps) => {
+const Item = ({ id, milestoneId, category, title, content, image, contentExtra }: ActivityDataInterface) => {
   const activityProgress = useActivityProgress();
   const navigation = useNavigation<ItemScreenNavigationProp>();
 
+  // Check which activities are completed for the given milestone
   const completedActivities = activityProgress?.isActivityCompleted(milestoneId, id);
   console.log("Activity completed:", completedActivities, "for ID:", id + " in milestone:", milestoneId);
   
@@ -110,8 +111,10 @@ export default function MicrogoalsOverviewScreen({ route }: MicrogoalssOverviewS
     const [fontsLoaded] = useNotoSerifFonts();
     const activeColors = useActiveColors();
 
+    // Extract the milestoneId parameter from the route. If the route params are not defined, use an empty object to avoid errors.
     const { milestoneId } = route.params ?? {};
 
+    // Retrieve the current milestone data based on the milestoneId from the MilestoneFlagMapping
     const currentMilestoneData: MilestoneDataInterface | undefined = MilestoneFlagMapping[milestoneId];
 
     if (!fontsLoaded) return null;

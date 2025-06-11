@@ -2,6 +2,9 @@ import * as React from "react";
 import { getData, removeData, storeData } from "../config/asyncStorage";
 import { ActivityProgressContext } from "./ActivityProgressContext";
 
+// Define how the completed activities are stored
+// It maps milestone IDs to objects that map activity IDs to booleans.
+// e.g., {"milestone1":{"m1-language":true}}
 export interface CompletedActivities {
     [milestoneId: string]: {
         [activityId: string]: boolean;
@@ -12,10 +15,9 @@ export interface ActivityProgressState {
     completedActivities: CompletedActivities;
     markActivityAsCompleted: (milestoneId: string, activityId: string) => void;
     isActivityCompleted: (milestoneId: string, activityId: string) => boolean;
-    removeActivity: (milestoneId: string, activityId: string) => void;
     countCompletedActivities: (milestoneId: string) => number;
+    removeActivity: (milestoneId: string, activityId: string) => void;
     clearAllProgress: () => void;
-    // isMilestoneCompleted: (milestoneId: string, totalActivites: number) => boolean;
 }
 
 interface ActivityProgressProviderProps {
@@ -51,6 +53,8 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
 
   const markActivityAsCompleted =  async (milestoneId: string, activityId: string) => {
     console.log(`Marking activity ${activityId} in ${milestoneId} as completed.`);
+    
+    // Create a new object to avoid mutating the state directly
     const newCompletedActivities = {...completedActivities};
     console.log("Current completed activities:", newCompletedActivities);
 
@@ -63,6 +67,7 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
       return;
     }
     
+    // Access the nested activity object in the milestone and mark it as completed
     newCompletedActivities[milestoneId][activityId] = true;
     console.log("Updated completed activities:", newCompletedActivities);
 
@@ -71,17 +76,8 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
     };
 
     const isActivityCompleted = (milestoneId: string, activityId: string): boolean => {
-        // !! checks if the activityId exists in completedActivities
+        // Checks if the activityId exists in completedActivities. !! converts the value to a boolean
         return !!completedActivities[milestoneId]?.[activityId];
-    };
-
-    const removeActivity = (activityId: string) => {
-        removeData(ASYNC_STORAGE_PROGRESS_KEY);
-    };
-
-    const clearAllProgress = async () => {
-      await removeData(ASYNC_STORAGE_PROGRESS_KEY);
-      setCompletedActivities({});
     };
 
     const countCompletedActivities = (milestoneId: string): number => {
@@ -96,6 +92,16 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
         return activityCount;
     }
 
+    // NOTE: currently unused and still needs some changing
+    const removeActivity = (activityId: string) => {
+        removeData(activityId);
+    };
+
+    const clearAllProgress = async () => {
+      await removeData(ASYNC_STORAGE_PROGRESS_KEY);
+      setCompletedActivities({});
+    };
+
     // If the data is still loading, return null to avoid rendering the context too early
     if (isLoading) {
         return null;
@@ -107,9 +113,9 @@ const ActivityProgressProvider: React.FC<ActivityProgressProviderProps> = ({ chi
             completedActivities,
             markActivityAsCompleted,
             isActivityCompleted,
+            countCompletedActivities,
             removeActivity,
             clearAllProgress,
-            countCompletedActivities,
         }}
         >
         {children}
