@@ -62,6 +62,7 @@ export default function MilestonesScreen() {
   console.log("Completed activities:", completedActivities);
 
   const handlePress = (event: GestureResponderEvent) => {
+  const handlePress = (event: GestureResponderEvent) => {
     const { locationX, locationY } = event.nativeEvent;
     console.log("Tapped at", locationX, locationY);
 
@@ -74,6 +75,7 @@ export default function MilestonesScreen() {
         locationY <= flag.y + flag.height
       ) {
         console.log("Tapped on flag:", flag.id, "-> Navigating to milestone:", flag.milestoneId);
+        console.log("Tapped on flag:", flag.id, "-> Navigating to milestone:", flag.milestoneId);
 
         // If the pressed flag has a milestoneId, navigate to the MicrogoalsOverviewScreen
         if (flag.milestoneId !== undefined) {
@@ -85,7 +87,57 @@ export default function MilestonesScreen() {
         }
         return;
       }
+      }
     console.log("Tapped outside any defined flag area.");
+  }
+};
+
+
+  const findNextUncompletedMilestone = (): string | undefined => {
+    for (const flag of MilestoneFlags) {
+      const milestoneId = flag.milestoneId;
+
+      // Use the milestoneId to look up the corresponding milestone data from the MilestoneFlagMapping
+      // If milestoneId is undefined, milestoneData will also be undefined
+      const milestoneData = milestoneId ? MilestoneFlagMapping[milestoneId] : undefined;
+      
+      const totalCount = milestoneData?.activities.length ?? 0;
+
+      // Determine how many activities have been completed for this milestone
+      // If milestoneId is missing or there is no entry in completedActivities, default to 0
+      const completedCount = milestoneId && completedActivities[milestoneId] ? completedActivities[milestoneId] : 0;
+
+      // If the activities of this milestone are not fully completed, return this milestoneId
+      if (milestoneId && completedCount < totalCount) {
+        return milestoneId;
+      }
+    }
+    // If all milestones are completed, return undefined
+    return undefined;
+  };
+
+  const handleNextStep = () => {
+    console.log("Next step button pressed");
+    const nextMilestoneId = findNextUncompletedMilestone();
+
+    if (nextMilestoneId) {
+      console.log("Navigating to next uncompleted milestone:", nextMilestoneId);
+      navigation.push("MicrogoalsOverviewScreen", {
+        milestoneId: nextMilestoneId,
+      });
+    } 
+    else {
+      console.log("All milestones completed!");
+    }
+  };
+
+  if (loading) {
+      return (
+        <View style={[styles.container, { justifyContent: "center", alignItems: "center", backgroundColor: activeColors.secondary }]}>
+          <ActivityIndicator size="large" color={activeColors.contrast} />
+        </View>
+      );
+    }
   }
 };
 
@@ -201,6 +253,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     overflow: "hidden",
+  },
+  zoomableContainer: {
+    flex: 1,
+    position: "relative",
+  },
+  absoluteButton: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: "center",
+    paddingBottom: 20,
+    zIndex: 10,
+  },
+  progressOverlay: {
+    position: 'absolute',
+    borderRadius: 5,
+    padding: 5,
+    transform: [{ translateX: -25 }, { translateY: 10 }]
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#000',
   },
   zoomableContainer: {
     flex: 1,

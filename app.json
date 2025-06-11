@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Vooruit In Rotterdam",
+    "name": "Vooruit In Rotterdam",
     "slug": "VooruitInRotterdam",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,6 +9,11 @@
     "scheme": "vooruitinrotterdam",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/app-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00811F"
+    },
     "splash": {
       "image": "./assets/images/app-logo.png",
       "resizeMode": "contain",

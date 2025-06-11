@@ -9,6 +9,9 @@ interface FlagArea {
   milestoneId?: string;
   progressTextX?: number;
   progressTextY?: number;
+  milestoneId?: string;
+  progressTextX?: number;
+  progressTextY?: number;
   action?: () => void;
 }
 
@@ -18,6 +21,10 @@ const MilestoneFlags: FlagArea[] = [
     x: 296,
     y: 568,
     width: 136,
+    height: 123,    
+    milestoneId: "milestone1", // 'milestone1' should match the data file key
+    progressTextX: 190,
+    progressTextY: 550,
     height: 123,    
     milestoneId: "milestone1", // 'milestone1' should match the data file key
     progressTextX: 190,
@@ -41,6 +48,9 @@ const MilestoneFlags: FlagArea[] = [
     y: 461,
     width: 58,
     height: 53,
+    milestoneId: "milestone3",
+    progressTextX: 280,
+    progressTextY: 430,
     milestoneId: "milestone3",
     progressTextX: 280,
     progressTextY: 430,
